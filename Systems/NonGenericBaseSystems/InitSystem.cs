@@ -1,4 +1,6 @@
-﻿namespace BonesOfTheFallen.Services
+﻿using System;
+
+namespace BonesOfTheFallen.Services
 {
     public abstract record InitSystem : SystemBase
     {
@@ -10,14 +12,14 @@
         {
         }
 
-        public bool IsInitialized { get; internal set; }
+        public int UninitializedEntity;
         public abstract void Init(float deltaTime);
         public override void TrackNewEntity(int entity)
         {
-            base.TrackNewEntity(entity);
-            if(Entities.Length > 0)
+            if (Array.IndexOf(Entities, entity) == -1)
             {
-                IsInitialized = false;
+                base.TrackNewEntity(entity);
+                UninitializedEntity = entity;
             }
         }
     }
