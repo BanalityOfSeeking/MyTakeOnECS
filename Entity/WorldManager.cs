@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace BonesOfTheFallen.Services
 {
+    /// <summary>
+    /// Manages the creation of entities and the addition of components
+    /// </summary>
     public record WorldManager
     {
         private readonly SystemsManager Systems;
@@ -13,13 +16,24 @@ namespace BonesOfTheFallen.Services
         }
 
         int _nextID = 1;
+
+        /// <summary>
+        /// Creates entity
+        /// </summary>
+        /// <returns>int</returns>
         public int CreateEntity()
         {
             var ret = _nextID;
             _nextID += 1;
             return ret;
         }
-
+        /// <summary>
+        /// Adds Components where the component meets the unmanaged requirement 
+        /// and implements IComponentBase
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity"></param>
+        /// <param name="component"></param>
         public void AddComponent<T>(int entity, T? component = default) where T : unmanaged, IComponentBase
         {
             if (component != null)
@@ -30,7 +44,9 @@ namespace BonesOfTheFallen.Services
             {
                 StoragePool.Store(entity, new T());
             }
+            // build entity mask, component by component
             var mask = BuildEntityMask<T>(entity);
+            // Checks if entity mask matches systems
             Systems.TrackNewEntity(entity, mask);
         }
         public static int BuildEntityMask<T>(int entity) where T : unmanaged, IComponentBase
@@ -45,6 +61,11 @@ namespace BonesOfTheFallen.Services
             }
             return EntityComponentMasks[entity];
         }
+        /// <summary>
+        /// Stores Masks and/or retrieves stored index
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>int</returns>
         public static int AddMask<T>() where T : unmanaged, IComponentBase
         {
             if (!TypeMasks.Contains(typeof(T)))
@@ -53,7 +74,11 @@ namespace BonesOfTheFallen.Services
             }
             return GetMask<T>();
         }
-
+        /// <summary>
+        /// retrieves index of Type added to list. 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>int</returns>
         public static int GetMask<T>() where T : unmanaged, IComponentBase
         {
             if (TypeMasks.Contains(typeof(T)))
