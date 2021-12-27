@@ -6,8 +6,8 @@ namespace BonesOfTheFallen.Services
     {
         public UpdateSystem() : base()
         {
-            // Retrieve mask for T
-            TypeMask |= WorldManager.AddMask<T>();   
+            // Retrieve mask
+            TypeMask = WorldManager.AddMask<T>();   
         }
         public override void ProcessEntity(float deltaTime, int entity)
         {

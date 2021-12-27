@@ -12,8 +12,10 @@ namespace BonesOfTheFallen.Services
                 t1Rfef.Value += t2Ref.Value * Time.DeltaTime;
                 t2Ref.Value = Vector2.Zero;
             }
+#if DEBUG
             Console.SetCursorPosition(0, 1);
             Console.WriteLine(t1Rfef.Value);
+#endif
         }
     }
 }

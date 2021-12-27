@@ -14,32 +14,28 @@ namespace BonesOfTheFallen.Services
         
         // Get Shared Random.
         private readonly Random Random = Random.Shared;
-        
+
         /// <summary>
         /// Initialize Attributes for entities
         /// </summary>
         /// <param name="deltaTime"></param>
         public override void Init(float deltaTime)
         {
-            foreach (int entity in Entities)
+            Attributes Attributes = new()
             {
-
-                Attributes Attributes = new()
-                {
-                    Charisma = (byte)Random.Next(3, 18),
-                    Constitution = (byte)Random.Next(3, 18),
-                    Dexterity = (byte)Random.Next(3, 18),
-                    Expierence = 0,
-                    Health = 100,
-                    Inteligence = (byte)Random.Next(3, 18),
-                    Level = 1,
-                    Mana = 100,
-                    Strength = (byte)Random.Next(3, 18),
-                    Wisdom = (byte)Random.Next(3, 18),
-                };
-                // Store Component
-                StoragePool.Store(entity, Attributes);
-            }
+                Charisma = (byte)Random.Next(3, 18),
+                Constitution = (byte)Random.Next(3, 18),
+                Dexterity = (byte)Random.Next(3, 18),
+                Expierence = 0,
+                Health = 100,
+                Inteligence = (byte)Random.Next(3, 18),
+                Level = 1,
+                Mana = 100,
+                Strength = (byte)Random.Next(3, 18),
+                Wisdom = (byte)Random.Next(3, 18),
+            };
+            // Store Component
+            StoragePool.Store(UninitializedEntity, Attributes);
         }
         /// <summary>
         /// Uses Enities[] in SystemBase to process messages 

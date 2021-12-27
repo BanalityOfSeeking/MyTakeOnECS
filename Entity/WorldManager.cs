@@ -49,6 +49,14 @@ namespace BonesOfTheFallen.Services
             // Checks if entity mask matches systems
             Systems.TrackNewEntity(entity, mask);
         }
+        /// <summary>
+        /// Builds Entity masks, 
+        /// by adding new mask to old 
+        /// or creates a new mask for the entity.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public static int BuildEntityMask<T>(int entity) where T : unmanaged, IComponentBase
         {
             if(EntityComponentMasks.ContainsKey(entity))
@@ -89,6 +97,6 @@ namespace BonesOfTheFallen.Services
         }
 
         private static readonly List<Type> TypeMasks = new() { typeof(int) };
-        private static readonly Dictionary<int, int> EntityComponentMasks = new();
+        public static readonly Dictionary<int, int> EntityComponentMasks = new();
     }
 }

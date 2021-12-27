@@ -44,10 +44,10 @@ namespace BonesOfTheFallen.Services
             {
                 if (GameSystems[i] is InitSystem init)
                 {
-                    if (!init.IsInitialized)
+                    if (init.UninitializedEntity != -1)
                     {
                         init.Init(deltaTime);
-                        init.IsInitialized = true;
+                        init.UninitializedEntity = -1;
                     }
                     else
                     {
