@@ -8,8 +8,9 @@ namespace BonesOfTheFallen.Services
     {
         protected int TypeMask;
         protected int[] Entities = Array.Empty<int>();
-
-        // add new return on duplicate entry
+        
+        // return on duplicate entry
+       
         public virtual void TrackNewEntity(int entity)
         {
             for (var ent = 0; ent < Entities.Length;ent++)

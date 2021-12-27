@@ -2,22 +2,38 @@
 
 namespace BonesOfTheFallen.Services
 {
+    /// <summary>
+    /// Systems Manager stores registered systems and executes them
+    /// </summary>
     public record SystemsManager
     {
+        /// <summary>
+        /// Store least derived type.
+        /// </summary>
         public SystemBase[] GameSystems = Array.Empty<SystemBase>();
-        public void Register(SystemBase g)
+
+        /// <summary>
+        /// Method registers systems with the manager.
+        /// prevents duplicate system registration.
+        /// </summary>
+        /// <param name="system"></param>
+        public void Register(SystemBase system)
         {
             for(int i = 0; i < GameSystems.Length; i++)
             {
-                if(GameSystems[i].Equals(g))
+                if(GameSystems[i].Equals(system))
                 {
                     return;
                 }
             }
             Array.Resize(ref GameSystems, GameSystems.Length + 1);
-            ref var system = ref GameSystems[^1];
-            system = g;
+            GameSystems[^1] = system;
         }
+
+        /// <summary>
+        /// Initiates call chain for systems to process added entities
+        /// </summary>
+        /// <param name="deltaTime"></param>
         public void Process(float deltaTime)
         {
             if (GameSystems.Length == 0)
@@ -44,6 +60,11 @@ namespace BonesOfTheFallen.Services
                 } 
             }
         }
+        /// <summary>
+        /// Matches Entity Mask to Systems and adds entity to that system.
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="mask"></param>
         public void TrackNewEntity(int entity, int mask)
         {
             foreach (var g in GameSystems)
