@@ -1,11 +1,7 @@
-﻿using System;
-
-namespace BonesOfTheFallen.Services
+﻿namespace BonesOfTheFallen.Services
 {
-    public interface ISystem<T> where T : struct, Enum
+    public interface ISystem
     {
-        // component modification
-        public IComponentBase<T> Component { get; }
 
         public void Process(in float time);
     }

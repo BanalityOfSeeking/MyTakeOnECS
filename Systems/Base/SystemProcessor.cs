@@ -7,21 +7,21 @@ using System.Linq;
 
 namespace BonesOfTheFallen.Services
 {
-    public record SystemProcessor<T> : IEnumerable<SystemBase<T>> where T : struct, Enum
+    public record SystemProcessor : IEnumerable<SystemBase>
     {
-        public IEnumerable<SystemBase<T>> Next = new List<SystemBase<T>>();
+        public IEnumerable<SystemBase> Next = new List<SystemBase>();
 
         public SystemProcessor()
         {
         }
 
-        public SystemProcessor<T> AddSystem(SystemBase<T> newSystem)
+        public SystemProcessor AddSystem(SystemBase newSystem)
         {
             ((IList)Next).Add(newSystem);
             return this;
         }
 
-        public IEnumerator<SystemBase<T>> GetEnumerator()
+        public IEnumerator<SystemBase> GetEnumerator()
         {
             return Next.GetEnumerator();
         }
@@ -45,6 +45,22 @@ namespace BonesOfTheFallen.Services
         IEnumerator IEnumerable.GetEnumerator()
         {
             return ((IEnumerable)Next).GetEnumerator();
+        }
+        public SystemsView GetSystemsView()
+        {
+            var sv = new SystemsView();
+
+            if (Next.Any())
+            {
+                
+                foreach (var system in Next)
+                {
+                    sv.SystemBaseViewAdd(system);
+                }
+                return sv;
+            }
+
+            return sv;
         }
     }
 }

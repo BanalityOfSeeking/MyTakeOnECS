@@ -8,13 +8,11 @@ namespace BonesOfTheFallen.Services
     /// <summary>
     /// Base of all Systems.
     /// </summary>
-    public abstract record SystemBase<T> : ISystem<T> where T : struct, Enum
+    public abstract record SystemBase : ISystem
     {
         protected SystemBase() : base()
         {
         }
-
-        public abstract IComponentBase<T> Component { get; }
 
         public abstract void Process(in float time);
 

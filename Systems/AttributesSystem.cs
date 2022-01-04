@@ -5,10 +5,10 @@ using System.Threading.Channels;
 
 namespace BonesOfTheFallen.Services
 {
-    public record AttributesSystem : SystemBase<AttributeEnum>, ISystem<AttributeEnum>
+    public record AttributesSystem : SystemBase, ISystem, IAttributesSystem
     {
         internal bool IsPlayableSystem { get; } = false;
-        public override IComponentBase<AttributeEnum> Component => InternalComponent;
+        public IComponentBase<AttributeEnum> Component => InternalComponent;
         private Attributes InternalComponent = default!;
         private readonly ChannelReader<AttributesModifier> Modifiers = default!;
         int Int0 = -1;
@@ -49,7 +49,7 @@ namespace BonesOfTheFallen.Services
         }
         public override void Process(in float time)
         {
-            while(Modifiers.TryRead(out var modifier))
+            while (Modifiers.TryRead(out var modifier))
             {
                 _ = Interlocked.Add(ref GetPropertyRef(modifier.AttributeId).Value, modifier.Modifier);
             }
