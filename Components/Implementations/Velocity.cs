@@ -1,14 +1,23 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using Microsoft.Toolkit.HighPerformance.Helpers;
 using System;
-using System.Numerics;
 
 namespace BonesOfTheFallen.Services
 {
-    public record struct Velocity : IComponentBase, IEquatable<Velocity>
+    public record Velocity : IComponentBase<VelocityEnum>, IEquatable<Velocity>
     {
-        public Vector2 Value = Vector2.Zero;
+        public double X;
+        public double Y;
+        public double Z;
 
-        public override int GetHashCode() => HashCode.Combine(Value.GetHashCode());
+        public Velocity()
+        {
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode<Velocity>.Combine(new[] { this });
+        }
     }
 }

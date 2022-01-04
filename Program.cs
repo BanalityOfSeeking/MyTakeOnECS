@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 
 namespace BonesOfTheFallen.Services
 {
@@ -7,41 +8,21 @@ namespace BonesOfTheFallen.Services
     /// </summary>
     internal class Program
     {
+
         private static void Main(string[] args)
         {
 
-            SystemsManager Manager = new();
-            Manager.Register(new AttributesSystem());
-            Manager.Register(new ControllerSystem());
-            Manager.Register(new LocationSystem());
-            Manager.Register(new MoverSystem());
 
-            WorldManager World = new(Manager);
-            
-            var entity = World.CreateEntity();
-            
-            World.AddComponent<Position>(entity);
-            World.AddComponent<Velocity>(entity);
-            World.AddComponent<Attributes>(entity);
-           
-            //var entity2 = World.CreateEntity();
-
-            //World.AddComponent<Position>(entity2);
-            //World.AddComponent<Velocity>(entity2);
-
-            //ProcessEvents();
-            //var keyboardState = Keyboard.GetState();
 
             while (1 == 1)
             {
-                Thread.Sleep(17);
-                Manager.Process(1f / 60f);
             }
         }
     }
-    public static class Time
+
+    public class Time
     {
-        public const float DeltaTime = 1f / 60f;
+        public readonly PeriodicTimer timer = new(TimeSpan.FromMilliseconds(17));
     }
     /// <summary>
     /// Codes representing keyboard keys.
@@ -101,7 +82,7 @@ namespace BonesOfTheFallen.Services
         /// </summary>
         /// <param name="key">Virtuak-key code for key.</param>
         /// <returns>The state of the key.</returns>
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        [global::System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
         private static extern short GetKeyState(int key);
     }
 }

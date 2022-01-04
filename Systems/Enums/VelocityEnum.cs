@@ -2,8 +2,11 @@
 
 namespace BonesOfTheFallen.Services
 {
-    public interface IUpdateSystem : IGameSystem
+    public enum VelocityEnum
     {
-        public void ProcessEntity(float deltaTime, int entity);
+        None,
+        X,
+        Y,
+        Z,
     }
 }

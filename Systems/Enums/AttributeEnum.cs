@@ -1,11 +1,8 @@
-﻿using System;
-
-namespace BonesOfTheFallen.Services
+﻿namespace BonesOfTheFallen.Services
 {
-    [Flags]
     public enum AttributeEnum
     {
-        None = 0,
+        None,
         Charisma,
         Constitution,
         Dexterity,

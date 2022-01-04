@@ -1,14 +1,22 @@
-﻿// See https://aka.ms/new-console-template for more information
-
+﻿using Microsoft.Toolkit.HighPerformance.Helpers;
 using System;
-using System.Numerics;
 
 namespace BonesOfTheFallen.Services
 {
-    public record struct Position : IComponentBase, IEquatable<Position>
+    public record Position : IComponentBase<PositionEnum>, IEquatable<Position>
     {
-        public Vector2 Value;
+        public double X;
+        public double Y;
+        public double Z;
 
-        public override int GetHashCode() => HashCode.Combine(Value.GetHashCode());
+        public Position()
+        {
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode<Position>.Combine(new[] { this });
+        }
+
     }
 }
