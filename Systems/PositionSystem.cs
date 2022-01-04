@@ -1,10 +1,9 @@
-﻿using Microsoft.Toolkit.HighPerformance;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Channels;
 
 namespace BonesOfTheFallen.Services
 {
-    public record PositionSystem : SystemBase<PositionEnum, double>, ISystem<PositionEnum, double>
+    public record PositionSystem : SystemBase<PositionEnum>, ISystem<PositionEnum>
     {
         internal bool IsPlayableSystem { get; } = false;
 
@@ -12,7 +11,6 @@ namespace BonesOfTheFallen.Services
 
         private Position InternalComponent = default!;
         private readonly ChannelReader<Position> Modifiers = default!;
-        double Int0 = -1;
 
         public PositionSystem(bool isPlayableSystem, ChannelReader<Position> modifiers)
         {
@@ -20,16 +18,6 @@ namespace BonesOfTheFallen.Services
             Modifiers=modifiers;
             InternalComponent = new();
         }
-
-        public override Ref<double> GetPropertyRef(PositionEnum attributeId) =>
-            attributeId switch
-            {
-                PositionEnum.None => new(ref Int0),
-                PositionEnum.X => new(ref InternalComponent.X),
-                PositionEnum.Y => new(ref InternalComponent.Y),
-                PositionEnum.Z => new(ref InternalComponent.Z),
-                _ => new(ref Int0),
-            };
 
         public void ProcessModifier(Position item)
         {
@@ -40,7 +28,7 @@ namespace BonesOfTheFallen.Services
         {
             while (Modifiers.TryRead(out var modifier))
             {
-                ProcessModifier(modifier);
+                ProcessModifier(modifier + InternalComponent);
             }
         }
     }

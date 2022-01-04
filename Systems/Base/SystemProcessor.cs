@@ -7,21 +7,21 @@ using System.Linq;
 
 namespace BonesOfTheFallen.Services
 {
-    public record SystemProcessor<T, U> : IEnumerable<SystemBase<T, U>> where T : struct, Enum
+    public record SystemProcessor<T> : IEnumerable<SystemBase<T>> where T : struct, Enum
     {
-        public IEnumerable<SystemBase<T, U>> Next = new List<SystemBase<T,U>>();
+        public IEnumerable<SystemBase<T>> Next = new List<SystemBase<T>>();
 
         public SystemProcessor()
         {
         }
 
-        public SystemProcessor<T, U> AddSystem(SystemBase<T, U> newSystem)
+        public SystemProcessor<T> AddSystem(SystemBase<T> newSystem)
         {
             ((IList)Next).Add(newSystem);
             return this;
         }
 
-        public IEnumerator<SystemBase<T, U>> GetEnumerator()
+        public IEnumerator<SystemBase<T>> GetEnumerator()
         {
             return Next.GetEnumerator();
         }

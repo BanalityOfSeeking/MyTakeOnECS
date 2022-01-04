@@ -5,18 +5,20 @@ namespace BonesOfTheFallen.Services
 {
     public record Position : IComponentBase<PositionEnum>, IEquatable<Position>
     {
-        public double X;
-        public double Y;
-        public double Z;
+        public double X = -1;
+        public double Y = -1;
+        public double Z = -1;
 
         public Position()
         {
         }
 
-        public override int GetHashCode()
+        public static Position operator +(Position left, Position right)
         {
-            return HashCode<Position>.Combine(new[] { this });
+            left.X += right.X;
+            left.Y += right.Y;
+            left.Z += right.Z;
+            return left;
         }
-
     }
 }

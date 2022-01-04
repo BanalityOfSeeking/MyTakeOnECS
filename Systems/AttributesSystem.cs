@@ -5,14 +5,14 @@ using System.Threading.Channels;
 
 namespace BonesOfTheFallen.Services
 {
-    public record AttributesSystem : SystemBase<AttributeEnum, int>, ISystem<AttributeEnum, int>
+    public record AttributesSystem : SystemBase<AttributeEnum>, ISystem<AttributeEnum>
     {
         internal bool IsPlayableSystem { get; } = false;
         public override IComponentBase<AttributeEnum> Component => InternalComponent;
         private Attributes InternalComponent = default!;
         private readonly ChannelReader<AttributesModifier> Modifiers = default!;
         int Int0 = -1;
-        public override Ref<int> GetPropertyRef(AttributeEnum attributeId) =>
+        public Ref<int> GetPropertyRef(AttributeEnum attributeId) =>
             attributeId switch
             {
                 AttributeEnum.None => new(ref Int0),

@@ -5,36 +5,27 @@ using System.Threading.Channels;
 
 namespace BonesOfTheFallen.Services
 {
-    public record VelocitySystem : SystemBase<VelocityEnum, double>, ISystem<VelocityEnum, double>
+    public record VelocitySystem : SystemBase<VelocityEnum>, ISystem<VelocityEnum>
     {
         internal bool IsPlayableSystem { get; } = false;
 
         public override IComponentBase<VelocityEnum> Component => InternalComponent;
 
-        private Velocity InternalComponent = default!;
+        private readonly Velocity InternalComponent = default!;
         private readonly ChannelReader<Velocity> Modifiers = default!;
-        double Int0 = -1;
+        private readonly ChannelWriter<Position> Positions = default!;
 
-        public VelocitySystem(bool isPlayableSystem, ChannelReader<Velocity> modifiers)
+        public VelocitySystem(bool isPlayableSystem, ChannelReader<Velocity> modifiers, ChannelWriter<Position> positionChannel)
         {
-            IsPlayableSystem=isPlayableSystem;
-            Modifiers=modifiers??throw new ArgumentNullException(nameof(modifiers));
-            InternalComponent = new();
-        }
+            IsPlayableSystem = isPlayableSystem;
+            Modifiers = modifiers??throw new ArgumentNullException(nameof(modifiers));
+            Positions = positionChannel??throw new ArgumentNullException(nameof(positionChannel));
 
-        public override Ref<double> GetPropertyRef(VelocityEnum attributeId) =>
-            attributeId switch
-            {
-                VelocityEnum.None => new(ref Int0),
-                VelocityEnum.X => new(ref InternalComponent.X),
-                VelocityEnum.Y => new(ref InternalComponent.Y),
-                VelocityEnum.Z => new(ref InternalComponent.Z),
-                _ => new(ref Int0),
-            };
+        }
 
         public void ProcessModifier(Velocity item)
         {
-            _ = Interlocked.Exchange(ref InternalComponent, item);
+            Positions.TryWrite(new Position() { X = item.X, Y = item.Y, Z = item.Z });
         }
 
         public override void Process(in float time)

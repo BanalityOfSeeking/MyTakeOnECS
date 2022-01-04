@@ -8,7 +8,7 @@ namespace BonesOfTheFallen.Services
     /// <summary>
     /// Base of all Systems.
     /// </summary>
-    public abstract record SystemBase<T, U> : ISystem<T, U> where T : struct, Enum
+    public abstract record SystemBase<T> : ISystem<T> where T : struct, Enum
     {
         protected SystemBase() : base()
         {
@@ -16,7 +16,6 @@ namespace BonesOfTheFallen.Services
 
         public abstract IComponentBase<T> Component { get; }
 
-        public abstract Ref<U> GetPropertyRef(T attributeId);
         public abstract void Process(in float time);
 
     }

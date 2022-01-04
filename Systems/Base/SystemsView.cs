@@ -6,22 +6,22 @@ namespace BonesOfTheFallen.Services
 {
     public abstract record SystemsView
     {
-        private ISystem<AttributeEnum, int> AttributeSystem { get; set; } = default!;
-        private ISystem<PositionEnum, double> PositionSystem { get; set; } = default!;
-        private ISystem<VelocityEnum, double> VelocitySystem { get; set;} = default!;
+        private ISystem<AttributeEnum> AttributeSystem { get; set; } = default!;
+        private ISystem<PositionEnum> PositionSystem { get; set; } = default!;
+        private ISystem<VelocityEnum> VelocitySystem { get; set;} = default!;
 
-        public void SystemBaseViewAdd<T, U>(SystemBase<T, U> @base) where T : struct, Enum
+        public void SystemBaseViewAdd<T>(SystemBase<T> @base) where T : struct, Enum
         {
             switch (@base)
             {
-                case SystemBase<AttributeEnum, int>:
-                    AttributeSystem = (ISystem<AttributeEnum, int>)@base;
+                case SystemBase<AttributeEnum>:
+                    AttributeSystem = (ISystem<AttributeEnum>)@base;
                     break;
-                case SystemBase<PositionEnum, double>:
-                    PositionSystem = (ISystem<PositionEnum, double>)@base;
+                case SystemBase<PositionEnum>:
+                    PositionSystem = (ISystem<PositionEnum>)@base;
                     break;
-                case SystemBase<VelocityEnum, double>:
-                    VelocitySystem = (ISystem<VelocityEnum, double>)@base;
+                case SystemBase<VelocityEnum>:
+                    VelocitySystem = (ISystem<VelocityEnum>)@base;
                     break;
                 default:
                     break;

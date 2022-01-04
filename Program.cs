@@ -31,7 +31,7 @@ namespace BonesOfTheFallen.Services
     /// Key code documentation:
     /// http://msdn.microsoft.com/en-us/library/dd375731%28v=VS.85%29.aspx
     /// </remarks>
-    internal enum KeyCode : int
+    public enum KeyCode : int
     {
         /// <summary>
         /// The left arrow key.
@@ -57,7 +57,7 @@ namespace BonesOfTheFallen.Services
     /// <summary>
     /// Provides keyboard access.
     /// </summary>
-    internal static class NativeKeyboard
+    public static class NativeKeyboard
     {
         /// <summary>
         /// A positional bit flag indicating the part of a key state denoting

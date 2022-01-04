@@ -7,9 +7,9 @@ namespace BonesOfTheFallen.Services
 {
     public record Velocity : IComponentBase<VelocityEnum>, IEquatable<Velocity>
     {
-        public double X;
-        public double Y;
-        public double Z;
+        public double X = -1;
+        public double Y = -1;
+        public double Z = -1;
 
         public Velocity()
         {
