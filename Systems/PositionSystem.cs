@@ -13,6 +13,13 @@ namespace BonesOfTheFallen.Services
         private Position InternalComponent = default!;
         private readonly ChannelReader<Position> Modifiers = default!;
         double Int0 = -1;
+
+        public PositionSystem(bool isPlayableSystem, ChannelReader<Position> modifiers)
+        {
+            IsPlayableSystem=isPlayableSystem;
+            Modifiers=modifiers;
+        }
+
         public override Ref<double> GetPropertyRef(PositionEnum attributeId) =>
             attributeId switch
             {

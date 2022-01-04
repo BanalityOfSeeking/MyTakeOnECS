@@ -1,4 +1,5 @@
 ﻿using Microsoft.Toolkit.HighPerformance;
+using System;
 using System.Threading;
 using System.Threading.Channels;
 
@@ -13,6 +14,13 @@ namespace BonesOfTheFallen.Services
         private Velocity InternalComponent = default!;
         private readonly ChannelReader<Velocity> Modifiers = default!;
         double Int0 = -1;
+
+        public VelocitySystem(bool isPlayableSystem, ChannelReader<Velocity> modifiers)
+        {
+            IsPlayableSystem=isPlayableSystem;
+            Modifiers=modifiers??throw new ArgumentNullException(nameof(modifiers));
+        }
+
         public override Ref<double> GetPropertyRef(VelocityEnum attributeId) =>
             attributeId switch
             {
