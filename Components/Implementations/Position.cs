@@ -1,5 +1,4 @@
-﻿using Microsoft.Toolkit.HighPerformance.Helpers;
-using System;
+﻿using System;
 
 namespace BonesOfTheFallen.Services
 {
@@ -19,6 +18,19 @@ namespace BonesOfTheFallen.Services
             left.Y += right.Y;
             left.Z += right.Z;
             return left;
+        }
+        public static bool operator <(Position left, Position right)
+        {
+            if (left.X < right.X
+                && left.Y < right.Y)
+            {
+                return true;
+            }
+            return false;
+        }
+        public static bool operator >(Position left, Position right)
+        {
+            return right < left;
         }
     }
 }

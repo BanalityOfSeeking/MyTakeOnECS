@@ -22,7 +22,7 @@ namespace BonesOfTheFallen.Services
                     break;
             }
         }
-        public IComponentBase<PositionEnum> PositionComponent { get => PosSystem.Component ?? default!; }
-        public IComponentBase<AttributeEnum> AttributeComponent { get => AttributeSystem.Component ?? default!; }
+        public Position PositionComponent => (Position)(PosSystem.Component ?? default!);
+        public Attributes AttributeComponent => (Attributes)(AttributeSystem.Component ?? default!);
     }
 }

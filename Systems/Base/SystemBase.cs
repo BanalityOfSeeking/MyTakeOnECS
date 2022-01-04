@@ -1,8 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using Microsoft.Toolkit.HighPerformance;
-using System;
-
 namespace BonesOfTheFallen.Services
 {
     /// <summary>
