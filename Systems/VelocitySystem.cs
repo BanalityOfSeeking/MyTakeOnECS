@@ -19,6 +19,7 @@ namespace BonesOfTheFallen.Services
         {
             IsPlayableSystem=isPlayableSystem;
             Modifiers=modifiers??throw new ArgumentNullException(nameof(modifiers));
+            InternalComponent = new();
         }
 
         public override Ref<double> GetPropertyRef(VelocityEnum attributeId) =>

@@ -18,6 +18,7 @@ namespace BonesOfTheFallen.Services
         {
             IsPlayableSystem=isPlayableSystem;
             Modifiers=modifiers;
+            InternalComponent = new();
         }
 
         public override Ref<double> GetPropertyRef(PositionEnum attributeId) =>
