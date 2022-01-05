@@ -3,16 +3,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 namespace BonesOfTheFallen.Services
 {
-    public record SystemProcessor : IEnumerable<SystemBase>
+    public class SystemProcessor : IEnumerable<SystemBase>
     {
         public IEnumerable<SystemBase> Next = new List<SystemBase>();
-
         public SystemProcessor()
         {
+
         }
 
         public SystemProcessor AddSystem(SystemBase newSystem)

@@ -5,7 +5,7 @@ using System;
 
 namespace BonesOfTheFallen.Services
 {
-    public record Velocity : IComponentBase<VelocityEnum>, IEquatable<Velocity>
+    public record struct Velocity : IComponentBase<VelocityEnum>, IEquatable<Velocity>
     {
         public double X = -1;
         public double Y = -1;
