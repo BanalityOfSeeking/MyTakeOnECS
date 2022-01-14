@@ -1,4 +1,7 @@
-﻿namespace BonesOfTheFallen.Services
+﻿using System;
+using System.Threading.Tasks;
+
+namespace BonesOfTheFallen.Services
 {
     public static class PositionExtensions
     {
