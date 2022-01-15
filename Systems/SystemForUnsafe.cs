@@ -12,8 +12,11 @@ namespace BonesOfTheFallen.Services
     {       
         public SystemForUnsafe<T> TransitionInPlaceUnsafe<PStruct>(PStruct @struct) where PStruct : struct, IRefAction<T>
         {
-            Memory<T> tArray = new(new Span<T>(ComponentSystemsUnsafe<T>.GetCache(), ComponentSystemsUnsafe<T>.CacheContainer.Count * Marshal.SizeOf<T>()).ToArray());
-            ParallelHelper.ForEach(tArray, @struct);
+            ParallelHelper.ForEach(new Memory<T>(
+                new Span<T>(
+                    ComponentSystemsUnsafe<T>.GetCache(),
+                    ComponentSystemsUnsafe<T>.CacheContainer.Count * Marshal.SizeOf<T>()).ToArray())
+            , @struct);
             return this;
         }
     }
