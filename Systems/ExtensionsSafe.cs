@@ -2,6 +2,10 @@
 
 namespace BonesOfTheFallen.Services
 {
+    /// <summary>
+    /// Safe extension for Entity and cache input.
+    /// mostly just wrappers.
+    /// </summary>
     public static class ExtensionsSafe
     {
         public static void AddComponentSafe<T>(this EntitySafe entity, T component)

@@ -4,10 +4,9 @@ using System.Runtime.CompilerServices;
 
 namespace BonesOfTheFallen.Services
 {
-
-
     /// <summary>
-    /// 
+    /// Gravity and Movement functions
+    /// ** needs method to await user input, instead of trying to hopefully grab it. ** 
     /// </summary>
     /// <param name="position"></param>
     /// <returns>Postion or Postion affected by gravity</returns>

@@ -1,6 +1,9 @@
 ﻿namespace BonesOfTheFallen.Services
 {
-    // storage for System and Component Cache.
+    /// <summary>
+    ///   System and Component Cache access class.
+    /// </summary>
+    /// <typeparam name="TValue"></typeparam>
     public static unsafe class ComponentSystemsUnsafe<TValue> where TValue : unmanaged
     {
         private static readonly SystemForUnsafe<TValue> System = new();

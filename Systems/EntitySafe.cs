@@ -4,7 +4,9 @@ using System.Threading;
 
 namespace BonesOfTheFallen.Services
 {
-    // reverse logic and safe.
+    /// <summary>
+    /// Safe implementation of entity that registers itself into World on new()
+    /// </summary>
     public struct EntitySafe
     {
 

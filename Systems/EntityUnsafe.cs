@@ -2,6 +2,9 @@
 
 namespace BonesOfTheFallen.Services
 {
+    /// <summary>
+    /// Unsafe entity gets assigned from World.CreateEntity()
+    /// </summary>
     public struct EntityUnsafe
     {
 

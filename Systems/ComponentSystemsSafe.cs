@@ -2,6 +2,10 @@
 
 namespace BonesOfTheFallen.Services
 {
+    /// <summary>
+    /// Access to the system as access to cache is already global from Safe side
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public static class ComponentSystemsSafe<T> where T : struct, IRefAction<T>
     {
 

@@ -3,7 +3,12 @@ using System.Runtime.InteropServices;
 
 namespace BonesOfTheFallen.Services
 {
-    // Super simple pointer lookup o0
+    /// <summary>
+    /// Store the count and reallocation count as well 
+    /// and allocates from native memory.
+    /// The actual pointer is stored in a separate static class.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public unsafe struct ComponentCacheUnsafe<T> : IDisposable where T : unmanaged
     {
         public ComponentCacheUnsafe()

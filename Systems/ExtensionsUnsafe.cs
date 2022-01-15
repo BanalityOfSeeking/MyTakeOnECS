@@ -4,6 +4,10 @@ using System.Runtime.InteropServices;
 
 namespace BonesOfTheFallen.Services
 {
+    /// <summary>
+    /// Extensions class for EntityUnsafe and writing to the cache pointer.
+    /// its faster, but error prone currently.
+    /// </summary>
     public static class ExtensionsUnsafe
     {
         /// <summary>
