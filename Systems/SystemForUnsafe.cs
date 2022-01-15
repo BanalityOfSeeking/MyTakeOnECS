@@ -5,11 +5,7 @@ using System.Runtime.InteropServices;
 namespace BonesOfTheFallen.Services
 {
     /// <summary>
-    /// Unsafe system that processes components using pointers
-    /// Not implemented in parallel 
-    /// yet due to copy memory to array, pass that array to parallelhelper, 
-    /// that copy gets changes then i have to copy them back to the pointer..
-
+    /// Unsafe system that processes components using pointers using span to capture it.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public sealed unsafe class SystemForUnsafe<T> where T : unmanaged
