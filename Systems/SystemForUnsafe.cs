@@ -15,7 +15,6 @@ namespace BonesOfTheFallen.Services
         {
             var cache = ComponentSystemsUnsafe<T>.GetCache();
             var container = ComponentSystemsUnsafe<T>.CacheContainer;
-            // turns out I forget alot. :/
             Memory<T> tArray = new(new Span<T>(cache, container.Count * Marshal.SizeOf<T>()).ToArray());
             ParallelHelper.ForEach(tArray, @struct);
             return this;

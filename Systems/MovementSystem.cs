@@ -2,14 +2,18 @@
 using System;
 using System.Runtime.CompilerServices;
 
+
+/// <summary>
+/// Gravity and Movement functions
+/// ** needs method to await user input, instead of trying to hopefully grab it. ** 
+/// </summary>
+/// <param name="position"></param>
+/// <returns>Postion or Postion affected by gravity</returns>
 namespace BonesOfTheFallen.Services
 {
     /// <summary>
-    /// Gravity and Movement functions
-    /// ** needs method to await user input, instead of trying to hopefully grab it. ** 
+    /// Takes input position and check if it can move up down and moves it down if it is 1.0 or and moves to 0 if less than 0.
     /// </summary>
-    /// <param name="position"></param>
-    /// <returns>Postion or Postion affected by gravity</returns>
     public readonly struct GravityHelper : IRefAction<Position>
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

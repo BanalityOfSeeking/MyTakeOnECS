@@ -6,7 +6,6 @@ namespace BonesOfTheFallen.Services
     // Less code ~ Parallel by default
     // ** I should replace parallel and try concurrent by default. **
 
-    // disadvantage garbage ToArray()..
     public sealed class SystemForSafe<T> where T : struct, IRefAction<T>
     {
         public SystemForSafe<T> TransitionInPlaceSafe<PStruct>(PStruct @struct) where PStruct : struct, IRefAction<T>

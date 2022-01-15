@@ -5,8 +5,8 @@ using System.Threading;
 namespace BonesOfTheFallen.Services
 {
     /// <summary>
-    ///  Currently I Create an Entity and pass in the Id.
-    ///  I can reverse this, on Entity Creation reference these variables
+    ///  Currently for EntityUnsafe I Create an Entity and pass in the Id.
+    ///  I reverse this method for Entity Safe.
     /// </summary>
     public static class World
     {
@@ -15,7 +15,6 @@ namespace BonesOfTheFallen.Services
         {
             var entity = new EntityUnsafe(EntityId);
             Interlocked.Increment(ref EntityId);
-            // auto adds to component pairs and initializes list of Types for this entity
             EntityComponentlookupUnsafe.Add(entity, new Dictionary<Type, int>());
 
             return entity;

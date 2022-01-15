@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 namespace BonesOfTheFallen.Services
 {
     /// <summary>
-    /// Extensions class for EntityUnsafe and writing to the cache pointer.
-    /// its faster, but error prone currently.
+    /// Extensions class for EntityUnsafe and writing to the ComponentCacheHelper<T> pointer.
+    /// its fast...
     /// </summary>
     public static class ExtensionsUnsafe
     {
@@ -20,11 +20,9 @@ namespace BonesOfTheFallen.Services
         /// <exception cref="Exception"></exception>
         public static unsafe void AddComponentUnsafe<T>(this EntityUnsafe entity, T input) where T : unmanaged
         {
-            // get dictionary to prevent constant repeated calls..
-            var ecl = World.EntityComponentlookupUnsafe;
-            if (ecl.ContainsKey(entity))
+            if (World.EntityComponentlookupUnsafe.ContainsKey(entity))
             {
-                Dictionary<Type, int> lookup = ecl[entity];
+                var lookup = World.EntityComponentlookupUnsafe[entity];
                 if (!lookup.ContainsKey(typeof(T)))
                 {
                     lookup.Add(typeof(T), ComponentSystemsUnsafe<T>.CacheContainer.WriteCacheUnsafe(input));
@@ -36,7 +34,7 @@ namespace BonesOfTheFallen.Services
             }
             else
             {
-                T* tcp = ComponentCacheHelperUnsafe<T>.CachePtr;
+                throw new Exception("Entity leaked");
             }
         }
         /// <summary>
@@ -48,16 +46,15 @@ namespace BonesOfTheFallen.Services
         /// <returns></returns>
         public static unsafe bool GetComponent<T>(this EntityUnsafe entity, out T component) where T : unmanaged
         {
-            var ecl = World.EntityComponentlookupUnsafe;
-            if (ecl.ContainsKey(entity))
+            if (World.EntityComponentlookupUnsafe.ContainsKey(entity))
             {
-                if (ecl[entity].ContainsKey(typeof(T)))
+                if (World.EntityComponentlookupUnsafe[entity].ContainsKey(typeof(T)))
                 {
 #if DEBUG // check key
-                    var key = ecl[entity][typeof(T)];
+                    var key = World.EntityComponentlookupUnsafe[entity][typeof(T)];
 #endif
                     var cache = ComponentCacheHelperUnsafe<T>.CachePtr;
-                    component =  *(cache + ecl[entity][typeof(T)]);
+                    component =  *(cache + World.EntityComponentlookupUnsafe[entity][typeof(T)]);
                     return true;
                 }
             }

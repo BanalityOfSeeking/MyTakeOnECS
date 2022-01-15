@@ -2,7 +2,7 @@
 {
 
     /// <summary>
-    /// Store Point for the Given type cache.
+    /// Store Pointer for the Given type cache.
     /// ** I want to eventualy turn ppointers to a "sparse set architecture" using pointers..
     /// that is a far way off..
     /// </summary>
