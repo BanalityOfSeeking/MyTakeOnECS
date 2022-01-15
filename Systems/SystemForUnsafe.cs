@@ -15,7 +15,7 @@ namespace BonesOfTheFallen.Services
             ParallelHelper.ForEach<T, PStruct>(new Memory<T>(
                 new Span<T>(ComponentCacheHelperUnsafe<T>.CachePtr, 
                             ComponentSystemsUnsafe<T>.CacheContainer.Count)
-                        .ToArray())), @struct);
+                        .ToArray()), @struct);
             return this;
         }
     }
