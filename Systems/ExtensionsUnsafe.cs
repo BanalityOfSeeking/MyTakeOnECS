@@ -14,7 +14,7 @@ namespace BonesOfTheFallen.Services
         /// <param name="entity"></param>
         /// <param name="input"></param>
         /// <exception cref="Exception"></exception>
-        public static unsafe void AddComponent<T>(this EntityUnsafe entity, T input) where T : unmanaged
+        public static unsafe void AddComponentUnsafe<T>(this EntityUnsafe entity, T input) where T : unmanaged
         {
             // get dictionary to prevent constant repeated calls..
             var ecl = World.EntityComponentlookupUnsafe;
@@ -23,7 +23,7 @@ namespace BonesOfTheFallen.Services
                 Dictionary<Type, int> lookup = ecl[entity];
                 if (!lookup.ContainsKey(typeof(T)))
                 {
-                    lookup.Add(typeof(T), ComponentSystemsUnsafe<T>.CacheContainer.WriteCache(input));
+                    lookup.Add(typeof(T), ComponentSystemsUnsafe<T>.CacheContainer.WriteCacheUnsafe(input));
                 }
                 else
                 {
@@ -67,7 +67,7 @@ namespace BonesOfTheFallen.Services
         /// <param name="cache"></param>
         /// <param name="input"></param>
         /// <returns></returns>
-        internal static unsafe int WriteCache<T>(this ref ComponentCacheUnsafe<T> cache, T input) where T : unmanaged
+        internal static unsafe int WriteCacheUnsafe<T>(this ref ComponentCacheUnsafe<T> cache, T input) where T : unmanaged
         {
             var container = ComponentSystemsUnsafe<T>.CacheContainer;
             // if cache count less than 64 use write to it, they are preallocated.

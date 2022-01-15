@@ -1,4 +1,6 @@
-﻿namespace BonesOfTheFallen.Services
+﻿using System.Collections.Generic;
+
+namespace BonesOfTheFallen.Services
 {
     public static class ExtensionsSafe
     {
@@ -10,6 +12,11 @@
         public static T GetComponentSafe<T>(this EntitySafe entity)
         {
             return ComponentCacheSafe<T>.Cache[ComponentCacheSafe<T>.EntityComponentIndex[entity]];
+        }
+        public static int WriteCacheSafe<T>(this List<T> cache, T input) where T : struct
+        {
+            cache.Add(input);
+            return cache.Count - 1;
         }
     }
 }
