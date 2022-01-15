@@ -4,21 +4,24 @@ using System.Threading;
 
 namespace BonesOfTheFallen.Services
 {
-    /// Create entities using World
+    /// <summary>
+    ///  Currently I Create an Entity and pass in the Id.
+    ///  I can reverse this, on Entity Creation reference these variables
+    /// </summary>
     public static class World
     {
         internal static int EntityId = 0;
-        public static Entity CreateEntity()
+        public static EntityUnsafe CreateEntity()
         {
-            var entity = new Entity();
+            var entity = new EntityUnsafe(EntityId);
             Interlocked.Increment(ref EntityId);
-            Interlocked.Exchange(ref entity.HashCode, EntityId.GetHashCode());
             // auto adds to component pairs and initializes list of Types for this entity
-            EntityComponentlookup.Add(entity, new Dictionary<Type, int>());
+            EntityComponentlookupUnsafe.Add(entity, new Dictionary<Type, int>());
 
             return entity;
         }
-        internal static readonly Dictionary<Entity, Dictionary<Type, int>> EntityComponentlookup = new();
+        internal static readonly Dictionary<EntityUnsafe, Dictionary<Type, int>> EntityComponentlookupUnsafe = new();
+        internal static readonly Dictionary<EntitySafe, Dictionary<Type, int>> EntityComponentlookupSafe = new();
 
     }
 }

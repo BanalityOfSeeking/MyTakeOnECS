@@ -1,6 +1,6 @@
 ﻿namespace BonesOfTheFallen.Services
 {
-    public unsafe static class ComponentCacheHelper<TValue> where TValue : unmanaged
+    public static unsafe class ComponentCacheHelperUnsafe<TValue> where TValue : unmanaged
     {
         internal static TValue* CachePtr = default!;
 

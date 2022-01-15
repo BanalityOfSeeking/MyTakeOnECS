@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 namespace BonesOfTheFallen.Services
 {
     // Super simple pointer lookup o0
-    public unsafe struct ComponentCache<TValue> : IDisposable where TValue : unmanaged
+    public unsafe struct ComponentCacheUnsafe<T> : IDisposable where T : unmanaged
     {
-        public ComponentCache()
+        public ComponentCacheUnsafe()
         {
-            ComponentCacheHelper<TValue>.CachePtr = (TValue*)NativeMemory.Alloc(64, (nuint)Marshal.SizeOf<TValue>());
+            ComponentCacheHelperUnsafe<T>.CachePtr = (T*)NativeMemory.Alloc(64, (nuint)Marshal.SizeOf<T>());
          }
         internal int Count { get; set; } = 0;
         internal int ReallocCount { get; set; } = 0;
@@ -16,7 +16,7 @@ namespace BonesOfTheFallen.Services
 
         public void Dispose()
         {
-            NativeMemory.Free(ComponentCacheHelper<TValue>.CachePtr);
+            NativeMemory.Free(ComponentCacheHelperUnsafe<T>.CachePtr);
         }
     }
 }
