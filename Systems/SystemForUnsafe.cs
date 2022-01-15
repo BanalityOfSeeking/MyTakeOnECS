@@ -10,12 +10,9 @@ namespace BonesOfTheFallen.Services
     /// <typeparam name="T"></typeparam>
     public sealed unsafe class SystemForUnsafe<T> where T : unmanaged
     {       
-
         public SystemForUnsafe<T> TransitionInPlaceUnsafe<PStruct>(PStruct @struct) where PStruct : struct, IRefAction<T>
         {
-            var cache = ComponentSystemsUnsafe<T>.GetCache();
-            var container = ComponentSystemsUnsafe<T>.CacheContainer;
-            Memory<T> tArray = new(new Span<T>(cache, container.Count * Marshal.SizeOf<T>()).ToArray());
+            Memory<T> tArray = new(new Span<T>(ComponentSystemsUnsafe<T>.GetCache(), ComponentSystemsUnsafe<T>.CacheContainer.Count * Marshal.SizeOf<T>()).ToArray());
             ParallelHelper.ForEach(tArray, @struct);
             return this;
         }
