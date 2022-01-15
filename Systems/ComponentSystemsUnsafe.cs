@@ -11,7 +11,7 @@
         internal static ComponentCacheUnsafe<TValue> CacheContainer = new();
         public static TValue* GetCache()
         {
-            return ComponentCacheHelperUnsafe<TValue>.CachePtr;            
+            return ComponentCacheHelperUnsafe<TValue>.CachePtr;
         }
     }
 }

@@ -11,5 +11,5 @@
     {
         internal static TValue* CachePtr = default!;
 
-    } 
+    }
 }

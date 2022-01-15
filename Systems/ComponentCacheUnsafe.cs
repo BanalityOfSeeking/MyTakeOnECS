@@ -14,7 +14,7 @@ namespace BonesOfTheFallen.Services
         public ComponentCacheUnsafe()
         {
             ComponentCacheHelperUnsafe<T>.CachePtr = (T*)NativeMemory.Alloc(64, (nuint)Marshal.SizeOf<T>());
-         }
+        }
         internal int Count { get; set; } = 0;
         internal int ReallocCount { get; set; } = 0;
 
