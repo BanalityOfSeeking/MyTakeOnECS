@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace BonesOfTheFallen.Services
@@ -44,7 +43,7 @@ namespace BonesOfTheFallen.Services
         /// <param name="entity"></param>
         /// <param name="component"></param>
         /// <returns></returns>
-        public static unsafe bool GetComponent<T>(this EntityUnsafe entity, out T component) where T : unmanaged
+        public static unsafe bool GetComponentUnsafe<T>(this EntityUnsafe entity, out T component) where T : unmanaged
         {
             if (World.EntityComponentlookupUnsafe.ContainsKey(entity))
             {
@@ -71,7 +70,7 @@ namespace BonesOfTheFallen.Services
         internal static unsafe int WriteCacheUnsafe<T>(this ref ComponentCacheUnsafe<T> cache, T input) where T : unmanaged
         {
             var container = ComponentSystemsUnsafe<T>.CacheContainer;
-            // if cache count less than 64 use write to it, they are preallocated.
+            // if cache count less than 64 use pointer to write.
             if (cache.Count < (cache.ReallocCount > 0 ? cache.ReallocCount : 1) * 64)
             {
                 *(ComponentCacheHelperUnsafe<T>.CachePtr + cache.Count) = input;

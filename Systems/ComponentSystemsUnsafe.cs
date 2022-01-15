@@ -9,9 +9,5 @@
         private static readonly SystemForUnsafe<TValue> System = new();
         public static SystemForUnsafe<TValue> GetSystem() => System;
         internal static ComponentCacheUnsafe<TValue> CacheContainer = new();
-        public static TValue* GetCache()
-        {
-            return ComponentCacheHelperUnsafe<TValue>.CachePtr;
-        }
     }
 }
