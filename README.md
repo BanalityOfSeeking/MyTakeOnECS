@@ -1,7 +1,4 @@
 # MyTakeOnECS
-Component/Systems with ReadonlyViews
-
-Self describing components that emit a Dictionary<int, string> that describes that components enum and Properties.
-
-This is a development in Progress, I expect many updates now that I have settled on a good enough design pattern.
-
+implemented both an unsafe and safe parallel ECS.
+Goal is to learn C# more deeply. Reading an article or 3 a day and writing some!
+Comments in source. Pull requests welcome!!
