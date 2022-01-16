@@ -10,7 +10,7 @@ namespace BonesOfTheFallen.Services
     {
         public SystemForSafe<T> TransitionInPlaceSafe<PStruct>(PStruct @struct) where PStruct : struct, IRefAction<T>
         {
-            ParallelHelper.ForEach<T, PStruct>(ComponentCacheSafe<T>.Cache.ToArray(), @struct);
+            // ParallelHelper.ForEach<T, PStruct>(World.EntityComponentManagerSafe..Cache.ToArray(), @struct);
             return this;
         }
     }
