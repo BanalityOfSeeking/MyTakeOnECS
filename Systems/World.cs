@@ -1,5 +1,4 @@
 ﻿using Microsoft.Toolkit.HighPerformance.Helpers;
-using System.Threading;
 
 namespace BonesOfTheFallen.Services
 {
@@ -26,7 +25,7 @@ namespace BonesOfTheFallen.Services
             private static readonly SystemForSafe<T> SystemSafe = new();
             public static SystemForSafe<T> GetSystem() => SystemSafe;
         }
-        public static unsafe class ComponentSystemsUnsafe<TValue> where TValue : unmanaged
+        public static unsafe class ComponentSystemsUnsafe<TValue> where TValue : unmanaged, IRefAction<TValue>
         {
             private static readonly SystemForUnsafe<TValue> System = new();
             public static SystemForUnsafe<TValue> GetSystem() => System;

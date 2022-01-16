@@ -7,14 +7,14 @@ namespace BonesOfTheFallen.Services
     /// Unsafe system that processes components using pointers using span to capture it.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public sealed unsafe class SystemForUnsafe<T> : IThreadPoolWorkItem where T : unmanaged
+    public sealed unsafe class SystemForUnsafe<T> : IThreadPoolWorkItem where T : unmanaged, IRefAction<T>
     {
         public void Execute()
         {
             throw new NotImplementedException();
         }
 
-        public SystemForUnsafe<T> TransitionInPlaceUnsafe<PStruct>(PStruct @struct) where PStruct : struct, IRefAction<T>
+        public SystemForUnsafe<T> TransitionInPlaceUnsafe<PStruct>(PStruct @struct) where PStruct : unmanaged, IRefAction<T>
         {
             ParallelHelper.ForEach(new Memory<T>(
                 new Span<T>(ComponentCacheHelperUnsafe<T>.CachePtr, 
