@@ -9,6 +9,7 @@ namespace BonesOfTheFallen.Services
     {
 
         internal int Id = 0;
+        internal int ComponentCount = 0;
         public EntityUnsafe(int id)
         {
             Id=id;
@@ -33,6 +34,10 @@ namespace BonesOfTheFallen.Services
         public static bool operator !=(EntityUnsafe left, EntityUnsafe right)
         {
             return !(left==right);
+        }
+        public static implicit operator int(EntityUnsafe entity)
+        {
+            return entity.Id;
         }
     }
 }

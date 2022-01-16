@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 
 namespace BonesOfTheFallen.Services
@@ -12,11 +11,10 @@ namespace BonesOfTheFallen.Services
 
         public EntitySafe()
         {
-            World.EntityComponentlookupSafe.Add(this, new Dictionary<Type, int>());
         }
 
-        internal int Id = Interlocked.Increment(ref World.EntityId);
-
+        internal int Id = Interlocked.Increment(ref World.EntitySafeId);
+        internal int ComponentCount = 0;
         public override bool Equals(object? obj)
         {
             return obj is EntitySafe entity&&
@@ -36,6 +34,10 @@ namespace BonesOfTheFallen.Services
         public static bool operator !=(EntitySafe left, EntitySafe right)
         {
             return !(left==right);
+        }
+        public static implicit operator int(EntitySafe entity)
+        {
+            return entity.Id;
         }
     }
 }

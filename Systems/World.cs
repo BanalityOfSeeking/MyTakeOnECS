@@ -1,26 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
+﻿using System.Threading;
 
 namespace BonesOfTheFallen.Services
 {
     /// <summary>
-    ///  Currently for EntityUnsafe I Create an Entity and pass in the Id.
-    ///  I reverse this method for Entity Safe.
+    ///  Currently for EntityUnsafe's id is created in World and passed in the constructor.
+    ///  I reverse this methodology for Entity Safe.
     /// </summary>
+    /// Only integration point for unsafe and safe implementations.
+    /// Idea: thread each implementaion, and benchmark, 
+    /// and search for area(s) where each implemation can be improved.
     public static class World
     {
-        internal static int EntityId = 0;
-        public static EntityUnsafe CreateEntity()
-        {
-            var entity = new EntityUnsafe(EntityId);
-            Interlocked.Increment(ref EntityId);
-            EntityComponentlookupUnsafe.Add(entity, new Dictionary<Type, int>());
-
-            return entity;
-        }
-        internal static readonly Dictionary<EntityUnsafe, Dictionary<Type, int>> EntityComponentlookupUnsafe = new();
-        internal static readonly Dictionary<EntitySafe, Dictionary<Type, int>> EntityComponentlookupSafe = new();
-
+        internal static int EntitySafeId = 0;
+        internal static int EntityUnsafeId = 0;
+        
+        public static readonly EntitySafeSparseSet EntityComponentManagerSafe = new(1024);
+        public static readonly EntityUnsafeSparseSet EntityComponentManagerUnsafe = new(1024);
     }
 }
