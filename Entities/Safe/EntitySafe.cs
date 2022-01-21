@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 
 namespace BonesOfTheFallen.Services
 {
@@ -9,12 +8,12 @@ namespace BonesOfTheFallen.Services
     public struct EntitySafe
     {
 
-        public EntitySafe()
+        internal EntitySafe(int id)
         {
+            Id = id;
         }
 
-        internal int Id = Interlocked.Increment(ref World.EntitySafeId);
-        internal int ComponentCount = 0;
+        public int Id = 0;
         public override bool Equals(object? obj)
         {
             return obj is EntitySafe entity&&
@@ -38,6 +37,11 @@ namespace BonesOfTheFallen.Services
         public static implicit operator int(EntitySafe entity)
         {
             return entity.Id;
+        }
+
+        public static explicit operator EntitySafe(int v)
+        {
+            return new(v);
         }
     }
 }
