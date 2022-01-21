@@ -1,11 +1,10 @@
 ﻿using System.Runtime.CompilerServices;
 using Microsoft.Toolkit.HighPerformance;
 using System;
-using System.Buffers;
 
 namespace BonesOfTheFallen.Services
 {
-    public class ComponentColumn<T> : IComponentColumn where T : struct, IComponentBase
+    public class ComponentColumn<T> : IComponentColumn where T : IComponentBase
     {
         internal int Max = 0;
         public int NumberOfActiveComponents { get; private set; } = 0;
@@ -47,7 +46,7 @@ namespace BonesOfTheFallen.Services
             return this;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public IComponentColumn GetComponent<U>(ref EntitySafe entity, out U t, out bool success) where U : struct, IComponentBase
+        public IComponentColumn GetComponent<U>(ref EntitySafe entity, out U t, out bool success) where U : IComponentBase
         {
             if (AllocatedComponents[entity] is U ts)
             {
@@ -76,15 +75,24 @@ namespace BonesOfTheFallen.Services
             return this;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe IComponentColumn GetEntityComponent<U>(ref EntitySafe entity, out Ref<U> @ref) where U : struct, IComponentBase
+        public unsafe IComponentColumn GetEntityComponent<U>(ref EntitySafe entity, out Ref<U> @ref) where U : IComponentBase
         {
             @ref = new Ref<U>(Unsafe.AsPointer(ref AllocatedComponents![entity]));
             return this;
         }
-
-        public ReadOnlySequence<IComponentBase> GetActiveComponents()
+        public T define = default!;
+        private int ActiveCalls = -1;
+        public unsafe void GetActiveComponents<U>(out Ref<U> @ref) where U : IComponentBase
         {
-            return new ReadOnlySequence<IComponentBase>(AllocatedComponents, 0, NumberOfActiveComponents);
+            ActiveCalls = ActiveCalls + 1 <= NumberOfActiveComponents ? ActiveCalls + 1 : -1;
+            if (ActiveCalls!= -1)
+            {
+                @ref = new Ref<U>(ref Unsafe.AsRef<U>(Unsafe.AsPointer(ref AllocatedComponents[ActiveCalls])));
+            }
+            else
+            {
+                @ref = default!;
+            }
         }
     }
 }

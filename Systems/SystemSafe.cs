@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace BonesOfTheFallen.Services
 {
@@ -34,21 +32,36 @@ namespace BonesOfTheFallen.Services
         }
 
 
-        public async Task QueueSystemWork(YieldAwaitable yieldAwaitable)
+        public void QueueSystemWork()
         {
-            ThreadPool.UnsafeQueueUserWorkItem(new WorkItem(ConstantColumn, Funcs), true);
-            await yieldAwaitable;
+            AutoResetEvent ev = new(false);
+            RegisteredWaitHandle registeredWait = default!;
+            registeredWait = ThreadPool.UnsafeRegisterWaitForSingleObject(ev, new WaitOrTimerCallback(WaitProc), registeredWait, 10000, true);
+            ThreadPool.UnsafeQueueUserWorkItem(new WorkItem(ConstantColumn, Funcs, ev), true);
+            static void WaitProc(object? state, bool timedOut)
+            {
+                RegisteredWaitHandle resetEvent = (RegisteredWaitHandle)state!;
+                if (!timedOut)
+                {
+                    if (resetEvent != null)
+                    {
+                        resetEvent.Unregister(null);
+                    }
+                }
+            }
         }
     }
     public struct WorkItem : IThreadPoolWorkItem
     {
         private readonly ColumnAction Funcs = default!;
         private IComponentColumn Column = default!;
+        private readonly AutoResetEvent ResetEvent = default!;
 
-        public WorkItem(in IComponentColumn items,in ColumnAction funcs)
+        public WorkItem(in IComponentColumn items,in ColumnAction funcs, in AutoResetEvent resetEvent)
         {
             Column = items;
             Funcs = funcs;
+            ResetEvent = resetEvent;
         }
         public void Execute()
         {
@@ -56,6 +69,7 @@ namespace BonesOfTheFallen.Services
             {
                 Funcs?.Invoke(ref Column);
             }
+            ResetEvent.Set();
         }
     }
 }

@@ -21,13 +21,13 @@ namespace BonesOfTheFallen.Services
         {
             if (position.HasVerticalMovement)
             {
-                if (position.Y > 1.0)
+                if (position.YRef > 1.0)
                 {
-                    position.Y -= 0.2;
+                    position.YRef -= 0.2;
                 }
-                if (position.Y < 0)
+                if (position.YRef < 0)
                 {
-                    position.Y = 0.0;
+                    position.YRef = 0.0;
                 }
             }
         }
@@ -61,25 +61,25 @@ namespace BonesOfTheFallen.Services
                 case 0:
                     if (postion.HasVerticalMovement)
                     {
-                        postion.Y -= 0.4f;
+                        postion.YRef -= 0.4f;
                     }
                     break;
                 case 1:
                     if (postion.HasVerticalMovement)
                     {
-                        postion.Y += 0.4f;
+                        postion.YRef += 0.4f;
                     }
                     break;
                 case 2:
                     if (postion.HasHorizontalMovement)
                     {
-                        postion.X -= 0.4f;
+                        postion.XRef -= 0.4f;
                     }
                     break;
                 case 3:
                     if (postion.HasHorizontalMovement)
                     {
-                        postion.X += 0.4f;
+                        postion.XRef += 0.4f;
                     }
                     break;
                 default:
@@ -92,19 +92,19 @@ namespace BonesOfTheFallen.Services
 
             if (NativeKeyboard.IsKeyDown(KeyCode.Down))
             {
-                position.Y = -0.4f;
+                position.YRef = -0.4f;
             }
             if (NativeKeyboard.IsKeyDown(KeyCode.Up))
             {
-                position.Y = 0.4f;
+                position.YRef = 0.4f;
             }
             if (NativeKeyboard.IsKeyDown(KeyCode.Left))
             {
-                position.X = -0.4f;
+                position.XRef = -0.4f;
             }
             if (NativeKeyboard.IsKeyDown(KeyCode.Right))
             {
-                position.X =  0.4f;
+                position.XRef =  0.4f;
             }
         }
     }

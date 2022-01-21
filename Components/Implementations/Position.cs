@@ -3,35 +3,28 @@
 namespace BonesOfTheFallen.Services
 {
     [StructLayout(LayoutKind.Explicit)]
-    public record struct Position : IComponentBase
+    public record Position : IComponentBase, IPosition
     {
         [FieldOffset(0)]
-        public bool HasVerticalMovement = false;
+        internal bool HasVerticalMovement = false;
         [FieldOffset(1)]
-        public bool HasHorizontalMovement = false;
+        internal bool HasHorizontalMovement = false;
         [FieldOffset(2)]
-        public bool IsMonster = true;
+        internal bool IsMonster = true;
         [FieldOffset(3)]
-        public double X = -1;
+        internal double X = -1;
         [FieldOffset(4 + sizeof(double))]
-        public double Y = -1;
+        internal double Y = -1;
         [FieldOffset(5 + sizeof(double)*2)]
-        public double Z = -1;
-
-        public Position(
-            double x = 0,
-            double y = 0,
-            double z = 0,
-            bool hasVerticalMovement = false,
-            bool hasHorizontalMovement = false,
-            bool isMonster = true)
-        {
-            X = x;
-            Y = y;
-            Z = z;
-            HasVerticalMovement = hasVerticalMovement;
-            HasHorizontalMovement = hasHorizontalMovement;
-            IsMonster = isMonster;
+        internal double Z = -1;
+        public ref bool HasVerticalRef { get => ref HasVerticalMovement; }
+        public ref bool HasHorizontalRef { get => ref HasHorizontalMovement; }
+        public ref bool Monster { get => ref IsMonster; }
+        public ref double XRef { get => ref X; }
+        public ref double YRef { get => ref Y; }
+        public ref double ZRef { get => ref Z; }
+        public Position()
+        { 
         }
 
         public static Position operator +(Position left, Position right)

@@ -74,6 +74,7 @@ namespace BonesOfTheFallen.Services
                                     BaseSystems[systems] = genSystem;
                                     listTypes.Add(BaseSystems[systems]?.GetType());
                                     woah.SystemRegistered = BaseSystems[systems];
+                                    systems++;
                                     break;
                                 }
                             }
@@ -88,7 +89,7 @@ namespace BonesOfTheFallen.Services
                         WorldOut.Enqueue(woah);
                     }
                 }
-                Thread.Sleep(200);
+                Thread.Sleep(150);
             }
         }
     }
