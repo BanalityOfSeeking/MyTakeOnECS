@@ -6,17 +6,23 @@ namespace BonesOfTheFallen.Services
 {
     public class ComponentColumn<T> : IComponentColumn where T : IComponentBase
     {
+        // Max number of components
         internal int Max = 0;
+        
         public int NumberOfActiveComponents { get; private set; } = 0;
+        // storage
         public IComponentBase[] AllocatedComponents = default!;
         public ComponentColumn(int _max)
         {
             Max = _max;
             AllocatedComponents = new IComponentBase[Max];
         }
+        // use activator to create type using paramterless constructor!!!!
         private static T GetTypedItem() => Activator.CreateInstance<T>();
+        
+        
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public IComponentColumn AddComponents(ref EntitySafe[] entities, out bool success)
+        public IComponentColumn AddComponentsToEntities(ref EntitySafe[] entities, out bool success)
         {
             if (NumberOfActiveComponents + entities.Length < Max)
             {
@@ -33,7 +39,7 @@ namespace BonesOfTheFallen.Services
             return this;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public IComponentColumn AddComponent(ref EntitySafe entity, out bool succeess)
+        public IComponentColumn AddComponentToEntity(ref EntitySafe entity, out bool succeess)
         {
             if (NumberOfActiveComponents + 1 < Max)
             {
@@ -46,7 +52,7 @@ namespace BonesOfTheFallen.Services
             return this;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public IComponentColumn GetComponent<U>(ref EntitySafe entity, out U t, out bool success) where U : IComponentBase
+        public IComponentColumn GetComponentForEntity<U>(ref EntitySafe entity, out U t, out bool success) where U : IComponentBase
         {
             if (AllocatedComponents[entity] is U ts)
             {

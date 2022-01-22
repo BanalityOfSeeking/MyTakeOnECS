@@ -10,7 +10,7 @@ namespace BonesOfTheFallen.Services
         private int _max = 0;
 
         private int _n = 0;
-        internal Memory<int> _denseEntities = new(stackalloc int[100].ToArray());      // dense array
+        internal Memory<int> _denseEntities = default!;     // dense array
         private MemoryHandle denseHandle = default!;
 
         internal Memory<int> _sparseEntities = new(stackalloc int[100].ToArray());     // sparse array
@@ -18,6 +18,10 @@ namespace BonesOfTheFallen.Services
 
         public MemorySparseSet(int max)
         {
+            _denseEntities = new Memory<int>()
+            {
+                Span = stackalloc int[100]
+            };
             denseHandle = _denseEntities.Pin();
             sparseHandle = _sparseEntities.Pin();
             _max = max;

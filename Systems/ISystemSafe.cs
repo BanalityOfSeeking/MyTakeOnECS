@@ -5,6 +5,7 @@ namespace BonesOfTheFallen.Services
     public interface ISystemSafe
     {
         ref EntitySafe AddEntity();
-        void QueueSystemWork();
+        void QueueWorkThread();
+        public void Work();
     }
 }
