@@ -1,7 +1,5 @@
 ﻿using Microsoft.Toolkit.HighPerformance.Helpers;
-using System;
-using System.Runtime.CompilerServices;
-
+using static BonesOfTheFallen.Services.Program;
 
 /// <summary>
 /// Gravity and Movement functions
@@ -11,100 +9,73 @@ using System.Runtime.CompilerServices;
 /// <returns>Postion or Postion affected by gravity</returns>
 namespace BonesOfTheFallen.Services
 {
-    /// <summary>
-    /// Takes input position and check if it can move up down and moves it down if it is 1.0 or and moves to 0 if less than 0.
-    /// </summary>
-    public readonly struct GravityHelper : IRefAction<Position>
-    {
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Invoke(ref Position position)
-        {
-            if (position.HasVerticalMovement)
-            {
-                if (position.YRef > 1.0)
-                {
-                    position.YRef -= 0.2;
-                }
-                if (position.YRef < 0)
-                {
-                    position.YRef = 0.0;
-                }
-            }
-        }
-    }
-
-
-
-    /// <summary>
-    /// Call each positions input routine to get a direction to move.
-    /// </summary>
-    /// <param name="position"></param>
-    /// <returns></returns>
     public readonly struct MovementHelper : IRefAction<Position>
     {
         public void Invoke(ref Position position)
         {
-            if (!position.IsMonster)
+            VelocityUpdate(ref position);
+        }
+        private static bool previousUD = false;
+        private static bool previousLR = false;
+        private static void BoundingRule(ref Position postion, double updown, double leftright)
+        {
+            if (postion.Y + updown > 0.0 && previousUD == false)
             {
-                VelocityUpdate(ref position);
+                postion.Y += updown;
+                previousUD = true;
+            }
+            else if (postion.Y + updown < 0.00)
+            {
+                postion.Y = 0.0;
+                previousUD = false;
+            }
+            else if (postion.X + leftright >= 100.0)
+            {
+                postion.X -= 0.5;
+                previousLR = true;
+            }
+            else if (postion.X + leftright <= -100.0)
+            {
+                postion.X += 0.5;
+                previousLR = true;
+            }
+            else 
+            {
+                postion.X += leftright;
+                postion.Y += updown; 
+            }
+        }
+
+        private static double updown = 0.0;
+        private static double leftright = 0.0;
+        private static void VelocityUpdate(ref Position position)
+        {
+            if (updown < 0.0)
+            {
+
+                if (NativeKeyboard.IsKeyDown(KeyCode.Down))
+                {
+                    updown = 0;
+                }
+                else if (NativeKeyboard.IsKeyDown(KeyCode.Up))
+                {
+                    updown = -1;
+                }
             }
             else
             {
-                VelocityUpdateMonster(ref position);
+                if (NativeKeyboard.IsKeyDown(KeyCode.Left))
+                {
+                    leftright = -0.1f;
+                }
+                else if (NativeKeyboard.IsKeyDown(KeyCode.Right))
+                {
+                    leftright =  0.1f;
+                }
             }
-        }
-        private static void VelocityUpdateMonster(ref Position postion)
-        {
-            var rand = Random.Shared.Next(0, 4);
-            switch (rand)
+            if (updown > 0.0 || leftright > 0.0)
             {
-                case 0:
-                    if (postion.HasVerticalMovement)
-                    {
-                        postion.YRef -= 0.4f;
-                    }
-                    break;
-                case 1:
-                    if (postion.HasVerticalMovement)
-                    {
-                        postion.YRef += 0.4f;
-                    }
-                    break;
-                case 2:
-                    if (postion.HasHorizontalMovement)
-                    {
-                        postion.XRef -= 0.4f;
-                    }
-                    break;
-                case 3:
-                    if (postion.HasHorizontalMovement)
-                    {
-                        postion.XRef += 0.4f;
-                    }
-                    break;
-                default:
-                    break;
-            };
-        }
-
-        private static void VelocityUpdate(ref Position position)
-        {
-
-            if (NativeKeyboard.IsKeyDown(KeyCode.Down))
-            {
-                position.YRef = -0.4f;
-            }
-            if (NativeKeyboard.IsKeyDown(KeyCode.Up))
-            {
-                position.YRef = 0.4f;
-            }
-            if (NativeKeyboard.IsKeyDown(KeyCode.Left))
-            {
-                position.XRef = -0.4f;
-            }
-            if (NativeKeyboard.IsKeyDown(KeyCode.Right))
-            {
-                position.XRef =  0.4f;
+                BoundingRule(ref position, updown, leftright);
             }
         }
     }

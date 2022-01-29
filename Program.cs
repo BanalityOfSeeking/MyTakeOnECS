@@ -1,7 +1,4 @@
-﻿using Microsoft.Toolkit.HighPerformance.Extensions;
-using Microsoft.Toolkit.HighPerformance.Helpers;
-using System;
-using System.Collections;
+﻿using System;
 using System.Threading;
 
 namespace BonesOfTheFallen.Services
@@ -11,81 +8,75 @@ namespace BonesOfTheFallen.Services
     /// </summary>
     internal class Program
     {
-
-        private static void Main(string[] args)
+        [STAThread]
+        static void Main()
         {
+        }
 
+        public class Time
+        {
+            public readonly PeriodicTimer timer = new(TimeSpan.FromMilliseconds(17));
+        }
+        /// <summary>
+        /// Codes representing keyboard keys.
+        /// </summary>
+        /// <remarks>
+        /// Key code documentation:
+        /// http://msdn.microsoft.com/en-us/library/dd375731%28v=VS.85%29.aspx
+        /// </remarks>
+        public enum KeyCode : int
+        {
+            /// <summary>
+            /// The left arrow key.
+            /// </summary>
+            Left = 0x25,
 
+            /// <summary>
+            /// The up arrow key.
+            /// </summary>
+            Up,
 
-            while (1 == 1)
+            /// <summary>
+            /// The right arrow key.
+            /// </summary>
+            Right,
+
+            /// <summary>
+            /// The down arrow key.
+            /// </summary>
+            Down
+        }
+
+        /// <summary>
+        /// Provides keyboard access.
+        /// </summary>
+        public static class NativeKeyboard
+        {
+            /// <summary>
+            /// A positional bit flag indicating the part of a key state denoting
+            /// key pressed.
+            /// </summary>
+            private const int KeyPressed = 0x8000;
+
+            /// <summary>
+            /// Returns a value indicating if a given key is pressed.
+            /// </summary>
+            /// <param name="key">The key to check.</param>
+            /// <returns>
+            /// <c>true</c> if the key is pressed, otherwise <c>false</c>.
+            /// </returns>
+            public static bool IsKeyDown(KeyCode key)
             {
+                return (GetKeyState((int)key) & KeyPressed) != 0;
             }
+
+            /// <summary>
+            /// Gets the key state of a key.
+            /// </summary>
+            /// <param name="key">Virtuak-key code for key.</param>
+            /// <returns>The state of the key.</returns>
+            [global::System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
+            private static extern short GetKeyState(int key);
         }
-    }
-
-    public class Time
-    {
-        public readonly PeriodicTimer timer = new(TimeSpan.FromMilliseconds(17));
-    }
-    /// <summary>
-    /// Codes representing keyboard keys.
-    /// </summary>
-    /// <remarks>
-    /// Key code documentation:
-    /// http://msdn.microsoft.com/en-us/library/dd375731%28v=VS.85%29.aspx
-    /// </remarks>
-    public enum KeyCode : int
-    {
-        /// <summary>
-        /// The left arrow key.
-        /// </summary>
-        Left = 0x25,
-
-        /// <summary>
-        /// The up arrow key.
-        /// </summary>
-        Up,
-
-        /// <summary>
-        /// The right arrow key.
-        /// </summary>
-        Right,
-
-        /// <summary>
-        /// The down arrow key.
-        /// </summary>
-        Down
-    }
-
-    /// <summary>
-    /// Provides keyboard access.
-    /// </summary>
-    public static class NativeKeyboard
-    {
-        /// <summary>
-        /// A positional bit flag indicating the part of a key state denoting
-        /// key pressed.
-        /// </summary>
-        private const int KeyPressed = 0x8000;
-
-        /// <summary>
-        /// Returns a value indicating if a given key is pressed.
-        /// </summary>
-        /// <param name="key">The key to check.</param>
-        /// <returns>
-        /// <c>true</c> if the key is pressed, otherwise <c>false</c>.
-        /// </returns>
-        public static bool IsKeyDown(KeyCode key)
-        {
-            return (GetKeyState((int)key) & KeyPressed) != 0;
-        }
-
-        /// <summary>
-        /// Gets the key state of a key.
-        /// </summary>
-        /// <param name="key">Virtuak-key code for key.</param>
-        /// <returns>The state of the key.</returns>
-        [global::System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
-        private static extern short GetKeyState(int key);
     }
 }

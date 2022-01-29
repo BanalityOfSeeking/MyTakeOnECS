@@ -1,6 +1,6 @@
-﻿namespace BonesOfTheFallen.Services
+﻿namespace BonesOfTheFallen.Classes
 {
-    public record struct Attributes : IComponentBase
+    public record struct Attributes
     {
         public Attributes()
         {
