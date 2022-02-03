@@ -1,13 +1,22 @@
-﻿namespace BonesOfTheFallen.Services
+﻿using Microsoft.Maui.Graphics;
+
+namespace BonesOfTheFallen.Services
 {
-    public record struct Position
+    public struct Position
     {
-        public Position()
-        {
-        }
-        public double X = -1;
-        public double Y = -1;
-        public double Z = -1;
+        public double X;
+        public double Y;
+        public double Z;
+
+    }
+    public struct Location
+    {
+        public bool HasQuest;
+        public string Name;
+        public Position LocationPostion;
+        public Rectangle Area;
+        public bool IsTrader;
+
 
     }
 }

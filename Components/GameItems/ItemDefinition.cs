@@ -1,4 +1,4 @@
 ﻿namespace BonesOfTheFallen.GameItems
 {
-    public record struct ItemDefinition(ItemDescription ItemDescription, ItemType Item, ItemModifiers Modifiers);
+    public record struct ItemDefinition(ItemType Item, ArmorDefinition Modifiers);
 }

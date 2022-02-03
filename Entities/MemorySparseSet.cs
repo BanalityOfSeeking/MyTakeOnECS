@@ -27,21 +27,7 @@ namespace BonesOfTheFallen.Services
                     _denseEntities[_n] = (EntitySafe)_n;
                     _sparseEntities[_n] = _n;       // ...and link it to the sparse array
                 };
-                return _denseEntities[.._n];
-            }
-            return default!;
-        }
-        public Span<EntitySafe> ProvideEntities(ref Span<EntitySafe> entities)
-        {
-            if (_n + entities.Length < _max)
-            {
-                for (int i = 0; _n < _max; _n++)
-                {
-                    _denseEntities[_n] = entities[i];
-                    _sparseEntities[_n] = _n;     // ...and link it to the sparse array
-                    i++;
-                }
-                return _denseEntities[.._n];
+                return _denseEntities.AsSpan()[.._n];
             }
             return default!;
         }

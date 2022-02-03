@@ -10,7 +10,6 @@ namespace BonesOfTheFallen.Services
         bool ContainsEntity(ref EntitySafe entity);
         Span<EntitySafe> GetEntities();
         Span<EntitySafe> ProvideEntities(ref int requestCount);
-        Span<EntitySafe> ProvideEntities(ref Span<EntitySafe> entities);
         void RemoveEntity(ref EntitySafe entity);
     }
 }

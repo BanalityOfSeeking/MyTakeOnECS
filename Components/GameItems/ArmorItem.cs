@@ -4,8 +4,8 @@
     {
         public ArmorItem(ItemDefinition definition)
         {
-            ArmorId=definition.Item.GetHashCode() + definition.ItemDescription.GetHashCode() + definition.Modifiers.GetHashCode();
-            Armor= definition.Modifiers.Armor.IsNull ? 0 : definition.Modifiers.Armor.Value;
+            ArmorId=definition.Item.GetHashCode() + definition.Modifiers.GetHashCode();
+            Armor= definition.Modifiers.PhysicalDefense.IsNull ? 0 : definition.Modifiers.PhysicalDefense.Value;
             MagicDefense=definition.Modifiers.MagicDefense.IsNull ? 0 : definition.Modifiers.MagicDefense.Value;
             DamageResist=definition.Modifiers.DamageResist.IsNull ? 0 : definition.Modifiers.DamageResist.Value;
             MagicResist=definition.Modifiers.MagicResist.IsNull ? 0 : definition.Modifiers.MagicResist.Value;
