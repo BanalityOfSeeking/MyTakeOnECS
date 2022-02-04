@@ -1,5 +1,5 @@
 ﻿using BonesOfTheFallen.Classes;
-using BonesOfTheFallen.GameItems;
+using BonesOfTheFallen.Services.Components.GameItems.Inventory;
 
 namespace BonesOfTheFallen.Services
 {

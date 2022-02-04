@@ -1,17 +1,14 @@
 ﻿namespace BonesOfTheFallen.GameItems
 {
-    public readonly record struct ArmorItem
+    public readonly ref struct ArmorItem
     {
-        public ArmorItem(ItemDefinition definition)
+        public ArmorItem(ArmorDefinition definition)
         {
-            ArmorId=definition.Item.GetHashCode() + definition.Modifiers.GetHashCode();
-            Armor= definition.Modifiers.PhysicalDefense.IsNull ? 0 : definition.Modifiers.PhysicalDefense.Value;
-            MagicDefense=definition.Modifiers.MagicDefense.IsNull ? 0 : definition.Modifiers.MagicDefense.Value;
-            DamageResist=definition.Modifiers.DamageResist.IsNull ? 0 : definition.Modifiers.DamageResist.Value;
-            MagicResist=definition.Modifiers.MagicResist.IsNull ? 0 : definition.Modifiers.MagicResist.Value;
+            Armor= definition.PhysicalDefense.IsNull ? 0 : definition.PhysicalDefense.Value;
+            MagicDefense=definition.MagicDefense.IsNull ? 0 : definition.MagicDefense.Value;
+            DamageResist=definition.DamageResist.IsNull ? 0 : definition.DamageResist.Value;
+            MagicResist=definition.MagicResist.IsNull ? 0 : definition.MagicResist.Value;
         }
-
-        public int ArmorId { get; init; }
         public int Armor { get; init; }
         public int MagicDefense { get; init; }
         public int DamageResist { get; init; }  

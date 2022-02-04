@@ -4,6 +4,7 @@
     {
         None,
         Health,
-        Mana
+        Mana,
+        Food,
     }
 }

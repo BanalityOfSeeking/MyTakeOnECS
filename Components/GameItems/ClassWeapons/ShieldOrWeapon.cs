@@ -1,16 +1,15 @@
-﻿using DotNext;
+﻿using BonesOfTheFallen.GameItems;
 
-namespace BonesOfTheFallen.GameItems
+namespace BonesOfTheFallen.Services.Components.GameItems;
+
+public ref struct ShieldOrWeapon
 {
-    public record struct ShieldOrWeapon
-    {
-        public readonly Optional<WeaponItem> Weapon;
-        public readonly Optional<ArmorItem> Shield;
+    public readonly WeaponItem Weapon;
+    public readonly ArmorItem Shield;
 
-        public ShieldOrWeapon(Optional<WeaponItem> weapon, Optional<ArmorItem> shield)
-        {
-            Weapon=weapon;
-            Shield=shield;
-        }
+    public ShieldOrWeapon(WeaponItem weapon, ArmorItem shield)
+    {
+        Weapon=weapon;
+        Shield=shield;
     }
 }

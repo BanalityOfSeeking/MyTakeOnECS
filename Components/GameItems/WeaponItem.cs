@@ -2,7 +2,7 @@
 
 namespace BonesOfTheFallen.GameItems
 {
-    public record struct WeaponItem
+    public readonly ref struct WeaponItem
     {
         public WeaponItem(WeaponDefinition definition)
         {
