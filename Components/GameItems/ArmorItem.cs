@@ -2,16 +2,36 @@
 {
     public readonly ref struct ArmorItem
     {
-        public ArmorItem(ArmorDefinition definition)
+        public ArmorItem(ArmorDescription description, ArmorType type)
         {
-            Armor= definition.PhysicalDefense.IsNull ? 0 : definition.PhysicalDefense.Value;
-            MagicDefense=definition.MagicDefense.IsNull ? 0 : definition.MagicDefense.Value;
-            DamageResist=definition.DamageResist.IsNull ? 0 : definition.DamageResist.Value;
-            MagicResist=definition.MagicResist.IsNull ? 0 : definition.MagicResist.Value;
+            Armor = description switch
+            {
+                ArmorDescription.None => 0,
+                ArmorDescription.ChainMail => 3,
+                ArmorDescription.Leather => 1,
+                ArmorDescription.Padded => 1,
+                ArmorDescription.PaddedLeather => 2,
+                ArmorDescription.PlateMail => 4,
+                ArmorDescription.StuddedLeather => 3,
+                _ => throw new System.NotImplementedException(),
+            } + type switch
+            {
+                ArmorType.None => 0,
+                ArmorType.Gloves => 1,
+                ArmorType.Pants => 3,
+                ArmorType.Robe => 2,
+                ArmorType.Shield => 2,
+                ArmorType.Shirt => 3,
+                ArmorType.Shoes => 1,
+                _ => throw new System.NotImplementedException(),
+            };
+            MagicDefense = Armor / 2;
+            DamageResist = Armor / 10;
+            MagicResist = MagicDefense / 10;
         }
-        public int Armor { get; init; }
-        public int MagicDefense { get; init; }
-        public int DamageResist { get; init; }  
-        public int MagicResist { get; init; }
+        public readonly int Armor;
+        public readonly int MagicDefense;
+        public readonly int DamageResist;
+        public readonly int MagicResist;
     }
 }

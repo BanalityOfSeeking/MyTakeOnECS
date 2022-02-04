@@ -6,7 +6,7 @@ public ref struct CacheEntryContainer<T, U> where T : struct
 {
     public CacheEntryContainer(in T input)
     {
-        if (Caches.CacheLookup.TryGetValue(typeof(T), out ObjectCache? cache))
+        if (CacheManager.GetInstance<T>().TryGetValue(typeof(T), out ObjectCache? cache))
         {
             Modifiers = (U)cache[Enum.GetName(typeof(T), input)];
         }

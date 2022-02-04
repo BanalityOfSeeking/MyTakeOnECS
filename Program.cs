@@ -1,6 +1,6 @@
 ﻿using BonesOfTheFallen.Classes;
-using BonesOfTheFallen.GameItems;
 using BonesOfTheFallen.Services.Caching;
+using BonesOfTheFallen.Services.Components.GameItems;
 using System;
 using System.Runtime.Caching;
 using System.Threading;
@@ -37,7 +37,7 @@ namespace BonesOfTheFallen.Services
 
         private static void LoadRaces()
         {
-            var cache = Caches.GetCache(CacheEntries.Race);
+            var cache = Cache.GetCache(CacheEntries.Race);
             foreach (Race race in Enum.GetValues(typeof(Race)))
             {
                 AttributeModifiers Modifiers = race switch
@@ -87,7 +87,7 @@ namespace BonesOfTheFallen.Services
         }
         private static void LoadClasses()
         {
-            var cache = Caches.GetCache(CacheEntries.Race);
+            var cache = Cache.GetCache(CacheEntries.Race);
             foreach (GameClass gameClass in Enum.GetValues(typeof(GameClass)))
             {
                 AttributeModifiers Modifiers = gameClass switch

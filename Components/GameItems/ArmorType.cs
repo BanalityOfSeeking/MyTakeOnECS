@@ -1,6 +1,6 @@
 ﻿namespace BonesOfTheFallen.GameItems
 {
-    public enum ItemType : int
+    public enum ArmorType
     {
         None,
         Gloves,
