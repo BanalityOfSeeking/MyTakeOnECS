@@ -2,7 +2,7 @@
 
 namespace BonesOfTheFallen.Classes
 {
-    public record struct AttributeModifiers
+    public record struct AttributeModifiers : IDisposable
     {
         public int CharismaMod;
         public int ConstitutionMod;
@@ -33,6 +33,10 @@ namespace BonesOfTheFallen.Classes
             ManaMod=manaMod;
             StrengthMod=strengthMod;
             WisdomMod=wisdomMod;
+        }
+
+        public void Dispose()
+        {
         }
     }
 }

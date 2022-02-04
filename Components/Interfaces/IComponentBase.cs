@@ -1,6 +1,5 @@
-﻿namespace BonesOfTheFallen.Services
+﻿namespace BonesOfTheFallen.Services.Components.Interfaces;
+
+public interface IComponentBase
 {
-    public interface IComponentBase
-    {
-    }
 }

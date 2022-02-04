@@ -1,4 +1,6 @@
-﻿namespace BonesOfTheFallen.Services
+﻿using BonesOfTheFallen.Services.Components.Interfaces;
+
+namespace BonesOfTheFallen.Services
 {
     /// <summary>
     /// I want no allocation exution

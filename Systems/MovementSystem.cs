@@ -1,5 +1,4 @@
 ﻿using Microsoft.Toolkit.HighPerformance.Helpers;
-using static BonesOfTheFallen.Services.Program;
 
 /// <summary>
 /// Gravity and Movement functions
@@ -7,7 +6,7 @@ using static BonesOfTheFallen.Services.Program;
 /// </summary>
 /// <param name="position"></param>
 /// <returns>Postion or Postion affected by gravity</returns>
-namespace BonesOfTheFallen.Services
+namespace BonesOfTheFallen.Services.Systems
 {
     public readonly struct MovementHelper : IRefAction<Position>
     {
@@ -39,10 +38,10 @@ namespace BonesOfTheFallen.Services
                 postion.X += 0.5;
                 previousLR = true;
             }
-            else 
+            else
             {
                 postion.X += leftright;
-                postion.Y += updown; 
+                postion.Y += updown;
             }
         }
 
