@@ -1,4 +1,6 @@
-﻿namespace BonesOfTheFallen.Services
+﻿using BonesOfTheFallen.Services.Components;
+
+namespace BonesOfTheFallen.Services
 {
     public static class PositionExtensions
     {

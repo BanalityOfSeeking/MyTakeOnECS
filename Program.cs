@@ -1,6 +1,7 @@
-﻿using BonesOfTheFallen.Classes;
-using BonesOfTheFallen.Services.Caching;
+﻿using BonesOfTheFallen.Services.Caching;
+using BonesOfTheFallen.Services.Components;
 using BonesOfTheFallen.Services.Components.GameItems;
+using BonesOfTheFallen.Services.Enum;
 using System;
 using System.Runtime.Caching;
 using System.Threading;
@@ -37,113 +38,119 @@ namespace BonesOfTheFallen.Services
 
         private static void LoadRaces()
         {
-            var cache = Cache.GetCache(CacheEntries.Race);
-            foreach (Race race in Enum.GetValues(typeof(Race)))
+            var cache = CacheManager.GetInstance<Race>();
+            if(cache is not null)
             {
-                AttributeModifiers Modifiers = race switch
+                foreach (Race race in Enum.GetValues(typeof(Race)))
                 {
-                    // Human (best class: any)
-                    Race.Human => new AttributeModifiers()
+                    AttributeModifiers Modifiers = race switch
                     {
-                        CharismaMod = 1,
-                        ConstitutionMod = 1,
-                        DexterityMod = 1,
-                        HealthMod = 40,
-                        InteligenceMod = 1,
-                        ManaMod = 20,
-                        StrengthMod = 1,
-                        WisdomMod = 1,
-                    },
-                    // Elf (best class : Mage, Archer)
-                    Race.Elf => new AttributeModifiers()
-                    {
-                        CharismaMod = 2,
-                        ConstitutionMod = 0,
-                        DexterityMod = 2,
-                        HealthMod = 30,
-                        InteligenceMod = 1,
-                        ManaMod = 30,
-                        StrengthMod = 0,
-                        WisdomMod = 1,
-                    },
-                    // Dwarf (best class: Cleric / Fighter)
-                    Race.Dwarf => new AttributeModifiers()
-                    {
-                        CharismaMod = 0,
-                        ConstitutionMod = 2,
-                        DexterityMod = 0,
-                        HealthMod = 50,
-                        InteligenceMod = 0,
-                        ManaMod = 40,
-                        StrengthMod = 2,
-                        WisdomMod = 2,
+                        // Human (best class: any)
+                        Race.Human => new AttributeModifiers()
+                        {
+                            CharismaMod = 1,
+                            ConstitutionMod = 1,
+                            DexterityMod = 1,
+                            HealthMod = 40,
+                            InteligenceMod = 1,
+                            ManaMod = 20,
+                            StrengthMod = 1,
+                            WisdomMod = 1,
+                        },
+                        // Elf (best class : Mage, Archer)
+                        Race.Elf => new AttributeModifiers()
+                        {
+                            CharismaMod = 2,
+                            ConstitutionMod = 0,
+                            DexterityMod = 2,
+                            HealthMod = 30,
+                            InteligenceMod = 1,
+                            ManaMod = 30,
+                            StrengthMod = 0,
+                            WisdomMod = 1,
+                        },
+                        // Dwarf (best class: Cleric / Fighter)
+                        Race.Dwarf => new AttributeModifiers()
+                        {
+                            CharismaMod = 0,
+                            ConstitutionMod = 2,
+                            DexterityMod = 0,
+                            HealthMod = 50,
+                            InteligenceMod = 0,
+                            ManaMod = 40,
+                            StrengthMod = 2,
+                            WisdomMod = 2,
 
-                    },
-                    _ => throw new NotImplementedException(),
-                };
-                CacheItem? cacheItem = new(Enum.GetName(typeof(Race), race), Modifiers);
-                cache.Add(cacheItem, null);
+                        },
+                        _ => throw new NotImplementedException(),
+                    };
+                    CacheItem? cacheItem = new(Enum.GetName(typeof(Race), race), Modifiers);
+                    cache.Add(cacheItem, default!);
+                }
             }
         }
         private static void LoadClasses()
         {
-            var cache = Cache.GetCache(CacheEntries.Race);
-            foreach (GameClass gameClass in Enum.GetValues(typeof(GameClass)))
+            var cache = CacheManager.GetInstance<GameClass>();
+            if (cache is not null)
             {
-                AttributeModifiers Modifiers = gameClass switch
+                foreach (GameClass gameClass in Enum.GetValues(typeof(GameClass)))
                 {
-                    // Human (best class: any)
-                    GameClass.Archer => new AttributeModifiers()
+                    AttributeModifiers Modifiers = gameClass switch
                     {
-                        CharismaMod = 2,
-                        ConstitutionMod = -2,
-                        DexterityMod = 2,
-                        HealthMod = 25,
-                        InteligenceMod = -1,
-                        ManaMod = 25,
-                        StrengthMod = -2,
-                        WisdomMod = 2,
-                    },
-                    // Elf (best class : Mage, Archer)
-                    GameClass.Cleric => new AttributeModifiers()
-                    {
-                        CharismaMod = -1,
-                        ConstitutionMod = 1,
-                        DexterityMod = -2,
-                        HealthMod = 35,
-                        InteligenceMod = -2,
-                        ManaMod = 50,
-                        StrengthMod = 2,
-                        WisdomMod = 1,
-                    },
-                    // Dwarf (best class: Cleric / Fighter)
-                    GameClass.Fighter => new AttributeModifiers()
-                    {
-                        CharismaMod = -2,
-                        ConstitutionMod = 4,
-                        DexterityMod = -2,
-                        HealthMod = 50,
-                        InteligenceMod = -2,
-                        ManaMod = 25,
-                        StrengthMod = 2,
-                        WisdomMod = -2,
+                        // Human (best class: any)
+                        GameClass.Archer => new AttributeModifiers()
+                        {
+                            CharismaMod = 2,
+                            ConstitutionMod = -2,
+                            DexterityMod = 2,
+                            HealthMod = 25,
+                            InteligenceMod = -1,
+                            ManaMod = 25,
+                            StrengthMod = -2,
+                            WisdomMod = 2,
+                        },
+                        // Elf (best class : Mage, Archer)
+                        GameClass.Cleric => new AttributeModifiers()
+                        {
+                            CharismaMod = -1,
+                            ConstitutionMod = 1,
+                            DexterityMod = -2,
+                            HealthMod = 35,
+                            InteligenceMod = -2,
+                            ManaMod = 50,
+                            StrengthMod = 2,
+                            WisdomMod = 1,
+                        },
+                        // Dwarf (best class: Cleric / Fighter)
+                        GameClass.Fighter => new AttributeModifiers()
+                        {
+                            CharismaMod = -2,
+                            ConstitutionMod = 4,
+                            DexterityMod = -2,
+                            HealthMod = 50,
+                            InteligenceMod = -2,
+                            ManaMod = 25,
+                            StrengthMod = 2,
+                            WisdomMod = -2,
 
-                    },
-                    GameClass.Mage => new AttributeModifiers()
-                    {
-                        CharismaMod = -1,
-                        ConstitutionMod = -2,
-                        DexterityMod = 2,
-                        HealthMod = 25,
-                        InteligenceMod = 2,
-                        ManaMod = 50,
-                        StrengthMod = -2,
-                        WisdomMod = 3,
-                    },
-                    _ => throw new NotImplementedException(),
-                };
-                CacheItem? cacheItem = new(Enum.GetName(typeof(GameClass), gameClass), Modifiers);
-                cache.Add(cacheItem, null);
+                        },
+                        GameClass.Mage => new AttributeModifiers()
+                        {
+                            CharismaMod = -1,
+                            ConstitutionMod = -2,
+                            DexterityMod = 2,
+                            HealthMod = 25,
+                            InteligenceMod = 2,
+                            ManaMod = 50,
+                            StrengthMod = -2,
+                            WisdomMod = 3,
+                        },
+                        _ => throw new NotImplementedException(),
+                    };
+                    CacheItem? cacheItem = new(Enum.GetName(typeof(GameClass), gameClass), Modifiers);
+                    cache.Add(cacheItem, default!);
+                }
             }
         }
     }

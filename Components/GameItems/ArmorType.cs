@@ -1,13 +1,12 @@
-﻿namespace BonesOfTheFallen.GameItems
+﻿namespace BonesOfTheFallen.Services.Components.GameItems;
+
+public enum ArmorType
 {
-    public enum ArmorType
-    {
-        None,
-        Gloves,
-        Pants,
-        Robe,
-        Shield,
-        Shirt,
-        Shoes,
-    }
+    None,
+    Gloves,
+    Pants,
+    Robe,
+    Shield,
+    Shirt,
+    Shoes,
 }

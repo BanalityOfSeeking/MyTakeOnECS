@@ -1,11 +1,10 @@
-﻿namespace BonesOfTheFallen.GameItems
+﻿namespace BonesOfTheFallen.Services.Components.Currency;
+
+public enum GameCurrencies
 {
-    public enum GameCurrencies
-    {
-        Gamium,
-        Platinum,
-        Gold,
-        Silver,
-        Brass,
-    }
+    Gamium,
+    Platinum,
+    Gold,
+    Silver,
+    Brass,
 }

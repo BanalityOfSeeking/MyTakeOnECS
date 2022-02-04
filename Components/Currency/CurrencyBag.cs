@@ -1,12 +1,11 @@
-﻿namespace BonesOfTheFallen.GameItems
+﻿namespace BonesOfTheFallen.Services.Components.Currency;
+
+public record struct CurrencyBag
 {
-    public record struct CurrencyBag
-    {
-        public int BrassPieces;
-        public int SilverPieces;
-        public int GoldPieces;
-        public int SteelPieces;
-        public int PlatinumPieces;
-        public int Gamiums;
-    }
+    public int BrassPieces;
+    public int SilverPieces;
+    public int GoldPieces;
+    public int SteelPieces;
+    public int PlatinumPieces;
+    public int Gamiums;
 }

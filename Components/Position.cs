@@ -1,6 +1,6 @@
 ﻿using Microsoft.Maui.Graphics;
 
-namespace BonesOfTheFallen.Services
+namespace BonesOfTheFallen.Services.Components
 {
     public struct Position
     {

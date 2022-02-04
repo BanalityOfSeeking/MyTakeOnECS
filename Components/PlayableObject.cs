@@ -1,5 +1,4 @@
-﻿using BonesOfTheFallen.Classes;
-using BonesOfTheFallen.Services.Components.GameItems;
+﻿using BonesOfTheFallen.Services.Components.GameItems;
 
 namespace BonesOfTheFallen.Services.Components;
 

@@ -1,13 +1,11 @@
-﻿namespace BonesOfTheFallen.GameItems
+﻿namespace BonesOfTheFallen.Services.Components.GameItems;
+public enum ArmorDescription
 {
-    public enum ArmorDescription
-    {
-        None,
-        ChainMail,
-        Leather,
-        Padded,
-        PaddedLeather,
-        PlateMail,
-        StuddedLeather,
-    }
+    None,
+    ChainMail,
+    Leather,
+    Padded,
+    PaddedLeather,
+    PlateMail,
+    StuddedLeather,
 }

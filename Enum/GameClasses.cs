@@ -1,10 +1,9 @@
-﻿namespace BonesOfTheFallen.Classes
+﻿namespace BonesOfTheFallen.Services.Enum;
+
+public enum GameClass
 {
-    public enum GameClass
-    {
-        Archer,
-        Cleric,
-        Fighter,
-        Mage,       
-    }
+    Archer,
+    Cleric,
+    Fighter,
+    Mage,
 }

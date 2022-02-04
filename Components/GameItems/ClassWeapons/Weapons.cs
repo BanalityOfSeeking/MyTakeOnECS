@@ -1,47 +1,48 @@
 ﻿namespace BonesOfTheFallen.Services.Components.GameItems;
 
-public enum ArcherAmmo
-{
-    None,
-    Arrow,
-    Bolt,
-}
-public enum ArcherWeapons
-{
-    None,
-    Dagger,
-    Bow,
-    CrossBow,
-}
 public enum Weapons
 {
     None,
+    Bow,
+    CrossBow,
     Dagger,
-    Mace,
     Hammer,
-    ShortSword
+    LongSword,
+    Mace,
+    Rod,
+    ShortSword,
+    Staff,
+    Sword,
 }
-public enum FighterWeapons
+public enum FighterOffHand
 {
     None,
     Dagger,
-    Sword,
-    ShortSword,
-    LongSword,
-}
-public enum Fighter2ndHand
-{
-    None,
     Shield,
-    ShortSword
+    ShortSword,
 }
-public enum MageWeapons
+public enum ArcherOffHand
 {
     None,
-    Staff,
-    Rod,
-    Wand,
+    Dagger,
+    Shield,
+    ThrowingKnives,
+}
+public enum ClericOffHand
+{
+    None, 
+    Dagger,
+    Shield,
+    HolyArtifact,
+    HolySymbol,
+}
+public enum MageOffHand
+{
+    None,
+    Dagger,
     Book,
     Tomb,
-    Dagger,
+    Wand,
+    Scrolls,
+    Artifact,
 }

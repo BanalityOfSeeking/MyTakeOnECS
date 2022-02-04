@@ -1,9 +1,8 @@
-﻿namespace BonesOfTheFallen.Classes
+﻿namespace BonesOfTheFallen.Services.Components;
+
+public enum Race
 {
-    public enum Race
-    {
-        Human,     
-        Dwarf,
-        Elf,
-    }
+    Human,
+    Dwarf,
+    Elf,
 }

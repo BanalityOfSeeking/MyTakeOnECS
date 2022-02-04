@@ -2,17 +2,13 @@
 
 namespace BonesOfTheFallen.Services.Components.GameItems;
 
-public readonly ref struct Weapon
+public readonly struct Weapon
 {
-    public Weapon(WeaponDefinition definition)
+    public Weapon(WeaponDescription description, WeaponType type)
     {
 
-        Range=definition.Range.IsNull ? Range.EndAt(0) : definition.Range.Value;
-        Damage=definition.AttackDmg.IsNull ? Range.EndAt(0) : definition.AttackDmg.Value;
-        MagicDamage= definition.MagicDmg.IsNull ? Range.EndAt(0) : definition.MagicDmg.Value;
     }
-
-    public Range Range { get; init; }
-    public Range Damage { get; init; }
-    public Range MagicDamage { get; init; }
+    public readonly Range Range;
+    public readonly Range Damage;
+    public readonly Range MagicDamage;
 }

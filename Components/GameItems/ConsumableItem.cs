@@ -1,10 +1,9 @@
-﻿namespace BonesOfTheFallen.GameItems
+﻿namespace BonesOfTheFallen.Services.Components.GameItems;
+
+public enum ConsumableItem
 {
-    public enum ConsumableItem
-    {
-        None,
-        Health,
-        Mana,
-        Food,
-    }
+    None,
+    Health,
+    Mana,
+    Food,
 }
