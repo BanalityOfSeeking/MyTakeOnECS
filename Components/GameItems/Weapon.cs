@@ -2,7 +2,7 @@
 
 namespace BonesOfTheFallen.Services.Components.GameItems;
 
-public ref struct Weapon
+public readonly ref struct Weapon
 {
     public Weapon(PreambleWeapon preamble, WeaponType type, MagicWeaponDescription bonusType, MagicWeaponBonus bonus)
     {

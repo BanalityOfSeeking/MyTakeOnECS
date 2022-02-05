@@ -1,4 +1,4 @@
-﻿namespace BonesOfTheFallen.Services.Enum;
+﻿namespace BonesOfTheFallen.Services.Components.Classes;
 
 public enum GameClass
 {

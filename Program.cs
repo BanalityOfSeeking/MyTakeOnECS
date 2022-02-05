@@ -1,7 +1,7 @@
 ﻿using BonesOfTheFallen.Services.Caching;
 using BonesOfTheFallen.Services.Components;
+using BonesOfTheFallen.Services.Components.Classes;
 using BonesOfTheFallen.Services.Components.GameItems;
-using BonesOfTheFallen.Services.Enum;
 using System;
 using System.Runtime.Caching;
 using System.Threading;
