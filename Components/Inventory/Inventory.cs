@@ -6,32 +6,14 @@ namespace BonesOfTheFallen.Services.Components.GameItems;
 
 public record struct Inventory
 {
-    public Optional<Range> MainRange;
-    public Optional<Range> MainDamage;
-    public Optional<Range> MainMagicDamage;
-    public Optional<Range> SecondaryRange;
-    public Optional<Range> SecondaryDamage;
-    public Optional<Range> SecondaryMagicDamage;
+    public IEquipedWeapon? Weapon;
+    public IEquipedWeaponOrShield? WeaponOrShield;
     public Optional<int> HeadDefense;
-    public Optional<int> HeadMagicDefense;
-    public Optional<int> HeadDamageResist;
-    public Optional<int> HeadMagicResist;
+
     public Optional<int> ChestDefense;
-    public Optional<int> ChestMagicDefense;
-    public Optional<int> ChestDamageResist;
-    public Optional<int> ChestMagicResist;
     public Optional<int> ArmsDefense;
-    public Optional<int> ArmsMagicDefense;
-    public Optional<int> ArmsDamageResist;
-    public Optional<int> ArmsMagicResist;
     public Optional<int> LegsDefense;
-    public Optional<int> LegsMagicDefense;
-    public Optional<int> LegsDamageResist;
-    public Optional<int> LegsMagicResist;
     public Optional<int> ShoesDefense;
-    public Optional<int> ShoesMagicDefense;
-    public Optional<int> ShoesDamageResist;
-    public Optional<int> ShoesMagicResist;
 
     public int TotalDefense()
     {
@@ -43,4 +25,19 @@ public record struct Inventory
     }
     private readonly CurrencyBag CoinBag = new();
 
+}
+
+public interface IEquipedWeaponOrShield
+{
+    bool IsShield { get; }
+    int ShieldDefense { get; }
+    int WeaponDamage { get; }
+    public bool Defend();
+    public bool Attack();
+
+}
+
+public interface IEquipedWeapon
+{
+    public bool Attack();
 }

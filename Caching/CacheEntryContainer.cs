@@ -1,14 +1,14 @@
 ﻿using System;
 namespace BonesOfTheFallen.Services.Caching;
 
-public ref struct CacheEntryContainer<T, U> where T : struct
+public ref struct CacheEntryContainer<T, U> where T : struct, Enum
 {
-    public CacheEntryContainer(in T input)
+    public CacheEntryContainer(T input)
     {
         var cache = CacheManager.GetInstance<T>();
-        if (cache?.Get(nameof(T)) != null)
+        if (cache?[Enum.GetName(typeof(T), input)!] != null)
         {
-            Modifiers = (U?)cache?[Enum.GetName(typeof(T), input)!]!;
+            Modifiers = (U?)cache?[Enum.GetName(typeof(T), input)!];
         }
         else
         {

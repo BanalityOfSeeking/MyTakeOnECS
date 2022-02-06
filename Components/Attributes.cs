@@ -1,9 +1,12 @@
-﻿using System;
+﻿using BonesOfTheFallen.Services.Components.Classes;
+using System;
 
 namespace BonesOfTheFallen.Services.Components;
 
 public struct Attributes : IEquatable<Attributes>
 {
+    internal Race Race = default!;
+    internal GameClass @Class = default!;
     public int Charisma;
     public int Constitution;
     public int Dexterity;
@@ -74,7 +77,7 @@ public struct Attributes : IEquatable<Attributes>
         return left;
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         return obj is Attributes && Equals((Attributes)obj);
     }
