@@ -2,13 +2,13 @@
 
 namespace BonesOfTheFallen.Services.Components;
 
-public record struct AttributeModifiers : IDisposable
+public ref struct AttributeModifiers
 {
     public int CharismaMod;
     public int ConstitutionMod;
     public int DexterityMod;
     public int HealthMod;
-    public int InteligenceMod;
+    public int IntelligenceMod;
     public int ManaMod;
     public int StrengthMod;
     public int WisdomMod;
@@ -18,7 +18,7 @@ public record struct AttributeModifiers : IDisposable
         ConstitutionMod=CharismaMod;
         DexterityMod=CharismaMod;
         HealthMod=CharismaMod;
-        InteligenceMod=CharismaMod;
+        IntelligenceMod=CharismaMod;
         ManaMod=CharismaMod;
         StrengthMod=CharismaMod;
         WisdomMod=CharismaMod;
@@ -29,7 +29,7 @@ public record struct AttributeModifiers : IDisposable
         ConstitutionMod=constitutionMod;
         DexterityMod=dexterityMod;
         HealthMod=healthMod;
-        InteligenceMod=inteligenceMod;
+        IntelligenceMod=inteligenceMod;
         ManaMod=manaMod;
         StrengthMod=strengthMod;
         WisdomMod=wisdomMod;

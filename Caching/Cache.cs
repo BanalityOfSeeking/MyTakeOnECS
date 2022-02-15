@@ -1,128 +1,40 @@
 ﻿
+using BonesOfTheFallen.Services.Components.Interfaces;
+using Microsoft.Toolkit.HighPerformance;
 using System;
-using System.Collections.Generic;
-using System.Runtime.Caching;
 
 namespace BonesOfTheFallen.Services.Caching;
-internal class Cache<T> : MemoryCache
+internal static class Cached2D
 {
-    public static Cache<T> GetInstance()
+
+    private static readonly Memory2D<IComponentBase> Cache2D = new(new IComponentBase[100000], 10000, 10);
+
+    internal static Memory<IComponentBase>? GetEntityComponents(EntitySafe Entity)
     {
-        return new Cache<T>(nameof(T));
-    }
-    public override DefaultCacheCapabilities DefaultCacheCapabilities => base.DefaultCacheCapabilities;
-
-    public override string Name => base.Name;
-
-    public override object this[string key] { get => base[key]; set => base[key]=value; }
-
-    public override bool Equals(object? obj)
-    {
-        return base.Equals(obj);
+       if(Cache2D.Slice(Entity.Id, 0, 1, 10).TryGetMemory(out Memory<IComponentBase> memory))
+        {
+            return memory;
+        }
+       return null;
     }
 
-    public override int GetHashCode()
+    internal static bool SetEntityComponents(EntitySafe entity, Memory<IComponentBase> memory)
     {
-        return base.GetHashCode();
-    }
+        if (memory.IsEmpty || memory.Length > Cache2D.Width)
+        {
+            return false;
+        }
+        try
+        {
+            memory.Span.CopyTo(Cache2D.Span.GetRowSpan(entity));
+            return true;
+        }
+        catch (Exception)
+        {
 
-    public override string? ToString()
-    {
-        return base.ToString();
-    }
+            return false;
+        }
 
-    public override bool Add(string key, object value, DateTimeOffset absoluteExpiration, string? regionName = null)
-    {
-        return base.Add(key, value, absoluteExpiration, regionName);
-    }
-
-    public override bool Add(string key, object value, CacheItemPolicy policy, string? regionName = null)
-    {
-        return base.Add(key, value, policy, regionName);
-    }
-
-    public override IDictionary<string, object> GetValues(string regionName, params string[] keys)
-    {
-        return base.GetValues(regionName, keys);
-    }
-
-    public override CacheEntryChangeMonitor CreateCacheEntryChangeMonitor(IEnumerable<string> keys, string? regionName = null)
-    {
-        return base.CreateCacheEntryChangeMonitor(keys, regionName);
-    }
-
-    protected override IEnumerator<KeyValuePair<string, object>> GetEnumerator()
-    {
-        return base.GetEnumerator();
-    }
-
-    public override bool Contains(string key, string? regionName = null)
-    {
-        return base.Contains(key, regionName);
-    }
-
-    public override bool Add(CacheItem item, CacheItemPolicy policy)
-    {
-        return base.Add(item, policy);
-    }
-
-    public override object AddOrGetExisting(string key, object value, DateTimeOffset absoluteExpiration, string? regionName = null)
-    {
-        return base.AddOrGetExisting(key, value, absoluteExpiration, regionName);
-    }
-
-    public override CacheItem AddOrGetExisting(CacheItem item, CacheItemPolicy policy)
-    {
-        return base.AddOrGetExisting(item, policy);
-    }
-
-    public override object AddOrGetExisting(string key, object value, CacheItemPolicy policy, string? regionName = null)
-    {
-        return base.AddOrGetExisting(key, value, policy, regionName);
-    }
-
-    public override object Get(string key, string? regionName = null)
-    {
-        return base.Get(key, regionName);
-    }
-
-    public override CacheItem GetCacheItem(string key, string? regionName = null)
-    {
-        return base.GetCacheItem(key, regionName);
-    }
-
-    public override void Set(string key, object value, DateTimeOffset absoluteExpiration, string? regionName = null)
-    {
-        base.Set(key, value, absoluteExpiration, regionName);
-    }
-
-    public override void Set(CacheItem item, CacheItemPolicy policy)
-    {
-        base.Set(item, policy);
-    }
-
-    public override void Set(string key, object value, CacheItemPolicy policy, string? regionName = null)
-    {
-        base.Set(key, value, policy, regionName);
-    }
-
-    public override object Remove(string key, string? regionName = null)
-    {
-        return base.Remove(key, regionName);
-    }
-
-    public override long GetCount(string? regionName = null)
-    {
-        return base.GetCount(regionName);
-    }
-
-    public override IDictionary<string, object> GetValues(IEnumerable<string> keys, string? regionName = null)
-    {
-        return base.GetValues(keys, regionName);
-    }
-
-    private Cache(string name) : base(name)
-    {
     }
 }
         

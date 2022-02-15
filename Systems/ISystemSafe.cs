@@ -1,9 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 
 namespace BonesOfTheFallen.Services
 {
-    public interface ISystemSafe
+    public interface ISystemSafe<T>
     {
-        void DoWork(float time);
+        IOrderedAsyncEnumerable<T> DoWork(float time);
     }
 }

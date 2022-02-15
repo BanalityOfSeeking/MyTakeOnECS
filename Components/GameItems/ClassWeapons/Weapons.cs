@@ -1,18 +1,16 @@
 ﻿namespace BonesOfTheFallen.Services.Components.GameItems;
 
-public enum Weapons
+
+public enum FighterMainHand
 {
     None,
-    Bow,
-    CrossBow,
-    Dagger,
-    Hammer,
-    LongSword,
-    Mace,
-    Rod,
-    ShortSword,
-    Staff,
+    Club,
     Sword,
+    LongSword,
+    TwoHandedSword,
+    WarHammer,
+    WarAxe,
+    Spear,
 }
 public enum FighterOffHand
 {
@@ -21,12 +19,36 @@ public enum FighterOffHand
     Shield,
     ShortSword,
 }
+public class Fighter
+{
+    public FighterMainHand MainHand { get; }
+    public FighterOffHand OffHand { get; }
+
+}
+public enum ArcherMainHand
+{
+    None,
+    CrossBow,
+    HeavyCrossBow,
+    LightBow,
+    MediumBow,
+    HeavyBow,
+    DualStringBow,
+}
 public enum ArcherOffHand
 {
     None,
     Dagger,
     Shield,
     ThrowingKnives,
+}
+public enum ClericMainHand
+{
+    None,
+    Club,
+    Mace,
+    Hammer,
+    Cudgel,
 }
 public enum ClericOffHand
 {
