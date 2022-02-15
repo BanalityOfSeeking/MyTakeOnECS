@@ -39,45 +39,52 @@ namespace BonesOfTheFallen.Services
         {
             var storage = po.GetUserData();
             storage.Set(po.Race, race);
-            if (storage.TryGet(po.Attributes, out GameSequence<int>?  attributes))
+            if (storage.TryGet(po.Attributes, out var attributes))
             {
                 attributes = race switch
                 {
-                    Race.Human => attributes +new AttributeModifiers()
-                    {
-                        CharismaMod = 1,
-                        ConstitutionMod = 1,
-                        DexterityMod = 1,
-                        HealthMod = 40,
-                        IntelligenceMod = 1,
-                        ManaMod = 20,
-                        StrengthMod = 1,
-                        WisdomMod = 1,
-                    },
-                    Race.Elf => attributes +new AttributeModifiers()
-                    {
-                        CharismaMod = 2,
-                        ConstitutionMod = 0,
-                        DexterityMod = 2,
-                        HealthMod = 30,
-                        IntelligenceMod = 1,
-                        ManaMod = 30,
-                        StrengthMod = 0,
-                        WisdomMod = 1,
-                    },
-                    Race.Dwarf => attributes +new AttributeModifiers()
-                    {
-                        CharismaMod = 0,
-                        ConstitutionMod = 2,
-                        DexterityMod = 0,
-                        HealthMod = 50,
-                        IntelligenceMod = 0,
-                        ManaMod = 20,
-                        StrengthMod = 2,
-                        WisdomMod = 2,
-                    },
+                    // Charisma,
+                    // Constitution,
+                    // Dexterity,
+                    // Health,
+                    // Intelligence,
+                    // Mana,
+                    // Strength,
+                    // Wisdom
+                    Race.Human => attributes.AddSegment(new(new int[] {
+                        1,
+                        1,
+                        1,
+                        40,
+                        1,
+                        20,
+                        1,
+                        1,
+                    })),
+                    Race.Elf => attributes.AddSegment(new(new int[] {
+                    
+                        2,
+                        0,
+                        2,
+                        30,
+                        1,
+                        30,
+                        0,
+                        1,
+                    })),
+                    Race.Dwarf => attributes.AddSegment(new(new int[] {
+                        0,
+                        2,
+                        0,
+                        50,
+                        0,
+                        20,
+                        2,
+                        2,
+                    })),
                     _ => throw new NotImplementedException(),
                 };
+                attributes.SumSegments();
                 storage.Set(po.Attributes, attributes);
             }
             return po;
@@ -87,60 +94,58 @@ namespace BonesOfTheFallen.Services
         {
             var storage = po.GetUserData();
             storage.Set(po.Class, @class);
-            if (storage.TryGet(po.Attributes, out Attributes attributes))
+            if (storage.TryGet(po.Attributes, out GameSequence<int>? attributes))
             {
                 attributes = @class switch
                 {
-                    // Human (best class: any)
-                    GameClass.Archer => attributes +new AttributeModifiers()
+ 
+                    GameClass.Archer => attributes.AddSegment(new(new int[] 
                     {
-                        CharismaMod = 2,
-                        ConstitutionMod = -2,
-                        DexterityMod = 2,
-                        HealthMod = 25,
-                        IntelligenceMod = -1,
-                        ManaMod = 25,
-                        StrengthMod = -2,
-                        WisdomMod = 2,
-                    },
+                        2,
+                        -2,
+                        2,
+                        25,
+                        -1,
+                        25,
+                        -2,
+                        2,
+                    })),
                     // Elf (best class : Mage, Archer)
-                    GameClass.Cleric => attributes +new AttributeModifiers()
-                    {
-                        CharismaMod = -1,
-                        ConstitutionMod = 1,
-                        DexterityMod = -2,
-                        HealthMod = 35,
-                        IntelligenceMod = -2,
-                        ManaMod = 50,
-                        StrengthMod = 2,
-                        WisdomMod = 1,
-                    },
+                    GameClass.Cleric => attributes.AddSegment(new(new int[] {
+                    
+                        -1,
+                        1,
+                        -2,
+                        35,
+                        -2,
+                        50,
+                        2,
+                        1,
+                    })),
                     // Dwarf (best class: Cleric / Fighter)
-                    GameClass.Fighter => attributes +new AttributeModifiers()
-                    {
-                        CharismaMod = -2,
-                        ConstitutionMod = 4,
-                        DexterityMod = -2,
-                        HealthMod = 50,
-                        IntelligenceMod = -2,
-                        ManaMod = 25,
-                        StrengthMod = 2,
-                        WisdomMod = -2,
-
-                    },
-                    GameClass.Mage => attributes +new AttributeModifiers()
-                    {
-                        CharismaMod = -1,
-                        ConstitutionMod = -2,
-                        DexterityMod = 2,
-                        HealthMod = 25,
-                        IntelligenceMod = 2,
-                        ManaMod = 50,
-                        StrengthMod = -2,
-                        WisdomMod = 3,
-                    },
+                    GameClass.Fighter => attributes.AddSegment(new(new int[] {
+                        -2,
+                        4,
+                        -2,
+                        50,
+                        -2,
+                        25,
+                        2,
+                        -2,
+                    })),
+                    GameClass.Mage => attributes.AddSegment(new(new int[] {
+                        -1,
+                        -2,
+                        2,
+                        25,
+                        2,
+                        50,
+                        -2,
+                        3,
+                    })),
                     _ => throw new NotImplementedException(),
                 };
+                attributes.SumSegments();
                 storage.Set(po.Attributes, attributes);
             }
             return po;

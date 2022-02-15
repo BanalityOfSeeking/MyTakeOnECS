@@ -1,6 +1,7 @@
 ﻿using BonesOfTheFallen.Services.Components;
 using BonesOfTheFallen.Services.Components.Classes;
 using DotNext;
+using Microsoft.Toolkit.HighPerformance;
 using System;
 using System.Buffers;
 using System.Collections.Generic;
@@ -10,8 +11,8 @@ namespace BonesOfTheFallen.Services
 
     public class GameSequenceSegment<T> : ReadOnlySequenceSegment<T>
     {
-
-        public GameSequenceSegment(ReadOnlyMemory<T> memory) : base()
+        public new Memory<T> Memory { get; }
+        public GameSequenceSegment(Memory<T> memory) : base()
         {
             Memory = memory;
         }
@@ -21,7 +22,7 @@ namespace BonesOfTheFallen.Services
         }
         public GameSequenceSegment(Span<T> memory)
         {
-            Memory = new ReadOnlyMemory<T>(memory.ToArray());
+            Memory = new Memory<T>(memory.ToArray());
         }
         public GameSequenceSegment(Range memory)
         {
@@ -29,13 +30,26 @@ namespace BonesOfTheFallen.Services
         }
         public new GameSequenceSegment<T> Next { get; set; } = default!;
     }
-    public class GameSequence<T>
+    public class GameSequence<T> where T : INumber<T>
     {
         private readonly List<GameSequenceSegment<T>> GameSegments = new(100);
         public GameSequence<T> AddSegment(GameSequenceSegment<T> gameSegments)
         {
             GameSegments.Add(gameSegments);
             return this;
+        }
+        public void SumSegments()
+        {
+            GameSequenceSegment<T> summed = new(new T[GameSegments[0].Memory.Length]);
+            foreach (GameSequenceSegment<T> segment in GameSegments)
+            {
+                foreach (var item in segment.Memory.Span.Enumerate())
+                {
+                    summed.Memory.Span[item.Index] += item.Value;
+                }
+            }
+            GameSegments.Clear();
+            GameSegments.Add(summed);
         }
     }
     internal record WeaponData
