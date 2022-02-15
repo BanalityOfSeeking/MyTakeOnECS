@@ -1,17 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-	<EnablePreviewFeatures>true</EnablePreviewFeatures>
-	<LangVersion>preview</LangVersion>
-	<OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-	<EnableNETAnalyzers>true</EnableNETAnalyzers>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <StartupObject>BonesOfTheFallen.Services.Program</StartupObject>
-    <Platforms>AnyCPU;x64;x86</Platforms>
-    <UseWindowsForms>True</UseWindowsForms>
-  </PropertyGroup>
+
+	<PropertyGroup>
+		<EnablePreviewFeatures>true</EnablePreviewFeatures>
+		<LangVersion>preview</LangVersion>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWindowsForms>true</UseWindowsForms>
+		<NoWarn>NU1701</NoWarn>
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<StartupObject>BonesOfTheFallen.Services.Program</StartupObject>
+		<Platforms>AnyCPU;x64;x86</Platforms>
+		<SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <Optimize>False</Optimize>
@@ -53,8 +57,10 @@
     <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.1.0-3.final" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.1.0-3.final" />
     <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="6.0.2-mauipre.1.22054.8" />
-    <PackageReference Include="Microsoft.Maui.Graphics" Version="6.0.200-preview.12.852" />
+    <PackageReference Include="Microsoft.Maui.Graphics" Version="6.0.200-preview.13.935" />
+    <PackageReference Include="Microsoft.Maui.Graphics.Skia" Version="6.0.200-preview.13.935" />
     <PackageReference Include="Microsoft.Toolkit.HighPerformance" Version="7.1.2" />
+    <PackageReference Include="SkiaSharp.Views.WindowsForms" Version="2.88.0-preview.187" />
     <PackageReference Include="System.Collections.Concurrent" Version="4.3.0" />
     <PackageReference Include="System.IO" Version="4.3.0" />
     <PackageReference Include="System.Linq" Version="4.3.0" />

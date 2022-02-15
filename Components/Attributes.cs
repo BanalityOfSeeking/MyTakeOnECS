@@ -52,7 +52,7 @@ namespace BonesOfTheFallen.Services
             GameSegments.Add(summed);
         }
     }
-    internal record WeaponData
+    public record WeaponData
     {
         internal bool? Identifiable = default!;
         internal bool? IsMagic = false;
@@ -63,7 +63,7 @@ namespace BonesOfTheFallen.Services
         public WeaponSystem(GameObject gameObject, WeaponData data)
         {
             var storage = gameObject.GetUserData();
-            var @class = storage.Get(gameObject.Class, GameClass.None);
+            var @class = storage.Get(gameObject.Class, GameClass.Farmer);
             switch (@class)
             {
                 case GameClass.None:
@@ -71,14 +71,8 @@ namespace BonesOfTheFallen.Services
                 case GameClass.Farmer:
                     data.Identifiable = false;
                     data.IsMagic  = false;
-                    // Range
-                    data.Data.AddSegment(new(new int[] { 3 }));
-                    // Damage
-                    data.Data.AddSegment(new(new int[] { 1 }));
-                    // Magic Damage
-                    data.Data.AddSegment(new(new int[] { 0 }));
-                    // Block Chance 
-                    data.Data.AddSegment(new(new int[] { 20 }));
+                    // Range, Damage, MagicDamage, BlockChance
+                    data.Data.AddSegment(new(new int[] { 3, 1, 0, 20 }));
                     break;
                 case GameClass.Trainee:
                     break;

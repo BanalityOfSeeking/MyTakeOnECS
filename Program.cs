@@ -1,8 +1,10 @@
 ﻿using BonesOfTheFallen.Services.Components;
 using BonesOfTheFallen.Services.Components.Classes;
+using BonesOfTheFallen.Services.Components.Forms;
 using DotNext;
 using System;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace BonesOfTheFallen.Services
 {
@@ -12,6 +14,10 @@ namespace BonesOfTheFallen.Services
         [STAThread]
         static void Main()
         {
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Form1());
             var go = new GameObject();
 
             UserDataStorage storage = go.GetUserData();

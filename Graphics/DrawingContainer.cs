@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Maui.Graphics;
-
+using Microsoft.Maui.Graphics.Skia;
 
 namespace BonesOfTheFallen.Graphics
 {
     public static class GameGraphics
     {
-        internal static ICanvas GameCanvas = default!;
+        internal static SkiaCanvas GameCanvas = default!;
         internal static RectangleF rectangle = new(0, 0, 1600, 1000);
     }
 
-    public sealed record ShapeDrawingClient
+    public sealed record DrawingContainer
     {
         private readonly List<IDrawable> Drawables = new();
         public void Add(IDrawable shape)
