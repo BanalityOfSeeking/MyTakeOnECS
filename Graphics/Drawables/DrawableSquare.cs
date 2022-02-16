@@ -16,7 +16,7 @@ namespace BonesOfTheFallen.Graphics
         public void Draw(ICanvas canvas, RectangleF dirtyRect)
         {
             canvas.FillColor = Color.FromRgb(Random.Shared.Next(50, 255), Random.Shared.Next(50, 255), Random.Shared.Next(50, 255));
-            canvas.DrawRectangle(Top, Left, SideLength, SideLength);
+            canvas.FillRectangle(Left,Top, SideLength, SideLength);
         }
     }
 }

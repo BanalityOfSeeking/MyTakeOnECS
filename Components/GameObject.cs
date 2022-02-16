@@ -6,11 +6,11 @@ namespace BonesOfTheFallen.Services.Components;
 
 public record GameObject
 {
-    public UserDataSlot<GameSequence<int>> Attributes;
-    public UserDataSlot<WeaponData> Weapon;
-    public UserDataSlot<HealthAndMana> HealthAndMana;
-    public UserDataSlot<LevelAndXP> LevelAndXP;
-    public UserDataSlot<Position> Position;
-    public UserDataSlot<GameClass> Class;
-    public UserDataSlot<Race> Race;
+    public UserDataSlot<GameSequence<int>> Attributes = new();
+    public UserDataSlot<WeaponData> Weapon = new();
+    public UserDataSlot<HealthAndMana> HealthAndMana = new();
+    public UserDataSlot<LevelAndXP> LevelAndXP = new();
+    public UserDataSlot<Position> Position = new();
+    public UserDataSlot<GameClass> Class = new();
+    public UserDataSlot<Race> Race = new();
 }

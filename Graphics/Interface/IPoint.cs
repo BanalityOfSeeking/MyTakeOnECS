@@ -9,7 +9,7 @@ namespace BonesOfTheFallen.Graphics
         public T Left { get; }
 
         IPoint<T> DistanceTo(IPoint<T> other);
-        IPoint<T> MoveTo(T top, T left);
+        IPoint<T> MoveTo(T left, T top);
     }
 }
 

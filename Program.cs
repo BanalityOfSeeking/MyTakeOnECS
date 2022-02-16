@@ -14,29 +14,30 @@ namespace BonesOfTheFallen.Services
         [STAThread]
         static void Main()
         {
+            var go = new GameObject();
+
+            UserDataStorage storage = go.GetUserData();
+            storage.Set(go.Class, SelectClass());
+            storage.Set(go.Race, SelectRace());
+            storage.Set(go.Attributes, new GameSequence<int>().AddSegment(new(Range.EndAt(19))));
+
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
-            var go = new GameObject();
-
-            UserDataStorage storage = go.GetUserData();
-            storage.GetOrSet(go.Class, () => SelectClass());
-            storage.GetOrSet(go.Race, () => SelectRace());
-            storage.GetOrSet(go.Attributes, () => new GameSequence<int>().AddSegment(new(Range.EndAt(19))));
+         
 
         }
 
         private static Race SelectRace()
         {
-            throw new NotImplementedException();
+            return Race.Human;
         }
 
         private static GameClass SelectClass()
         {
-            Console.SetCursorPosition(0, Console.WindowHeight);
-            Console.Out.WriteLineAsync("Hello");
-            return GameClass.None;
+
+            return GameClass.Farmer;
         }
     }
     public static class AttibutesExtensions

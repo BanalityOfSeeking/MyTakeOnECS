@@ -1,7 +1,6 @@
 ﻿using BonesOfTheFallen.Graphics;
 using Microsoft.Maui.Graphics;
 using Microsoft.Maui.Graphics.Skia;
-using OpenTK.Graphics;
 using SkiaSharp.Views.Desktop;
 using System.Windows.Forms;
 
@@ -9,23 +8,63 @@ namespace BonesOfTheFallen.Services.Components.Forms
 {
     public partial class Form1 : Form
     {
+        public readonly DrawingContainer Drawables = new();
         public Form1()
         {
             InitializeComponent();
+            KeyPreview = true;
+            skglControl1.PreviewKeyDown += Form1_PreviewKeyDown;
             skglControl1.PaintSurface += SkglControl1_PaintSurface;
+
+            Drawables.Add(new DrawableSquare(500, 500, 100));
+        }
+
+        private void Form1_PreviewKeyDown(object? sender, PreviewKeyDownEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Up:
+                    Drawables.Drawables[0] =
+                    (IDrawable)
+                    ((IPoint<float>)Drawables.Drawables[0])
+                        .MoveTo(((IPoint<float>)Drawables.Drawables[0]).Left,
+                        ((IPoint<float>)Drawables.Drawables[0]).Top - 5);
+                    break;
+                case Keys.Down:
+                    Drawables.Drawables[0] =
+                    (IDrawable)((IPoint<float>)Drawables.Drawables[0])
+                        .MoveTo(((IPoint<float>)Drawables.Drawables[0]).Left,
+                        ((IPoint<float>)Drawables.Drawables[0]).Top + 5);
+                    break;
+                case Keys.Left:
+                    Drawables.Drawables[0] =
+                    (IDrawable)
+                    ((IPoint<float>)Drawables.Drawables[0])
+                        .MoveTo(((IPoint<float>)Drawables.Drawables[0]).Left - 1,
+                        ((IPoint<float>)Drawables.Drawables[0]).Top); break;
+                case Keys.Right:
+                    Drawables.Drawables[0] =
+                    (IDrawable)
+                    ((IPoint<float>)Drawables.Drawables[0])
+                        .MoveTo(((IPoint<float>)Drawables.Drawables[0]).Left + 1,
+                        ((IPoint<float>)Drawables.Drawables[0]).Top);
+                    break;
+                default:
+                    break;
+            }
+            skglControl1.Invalidate();
         }
 
         private void SkglControl1_PaintSurface(object? sender, SKPaintGLSurfaceEventArgs e)
         {
+            e.Surface.Canvas.Clear();
+            if (GameGraphics.GameCanvas == null)
+            {
+                GameGraphics.GameCanvas = new SkiaCanvas() { Canvas = e.Surface.Canvas };
 
-            ICanvas canvas = new SkiaCanvas() { Canvas = e.Surface.Canvas };
-
-            canvas.FillColor = Colors.Navy;
-            canvas.FillRectangle(0, 0, skglControl1.Width, skglControl1.Height);
-
-
-            DrawableCircle dc = new(5, new Point<float>(100, 100));
-            dc.Draw(canvas, GameGraphics.rectangle);
+                GameGraphics.rectangle = RectangleF.FromLTRB(e.Info.Rect.Left, e.Info.Rect.Top, e.Info.Rect.Right, e.Info.Rect.Bottom);
+            }
+            Drawables.Draw();
         }
     }
 }

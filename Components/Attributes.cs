@@ -8,8 +8,14 @@ using System.Collections.Generic;
 
 namespace BonesOfTheFallen.Services
 {
-
-    public class GameSequenceSegment<T> : ReadOnlySequenceSegment<T>
+    /// <summary>
+    /// GameSequenceSegments Purpose is to contain the next sequence 
+    /// of data that changes the underlying data set.
+    /// example BaseAttributes + RaceAttributes + ClassAttributes = GameArchType
+    /// in other words I dont do singular modifications of the data, I only sum Sequences.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class GameSequenceSegment<T> : ReadOnlySequenceSegment<T> where T : INumber<T>
     {
         public new Memory<T> Memory { get; }
         public GameSequenceSegment(Memory<T> memory) : base()
@@ -26,10 +32,17 @@ namespace BonesOfTheFallen.Services
         }
         public GameSequenceSegment(Range memory)
         {
-            Memory = new T[memory.End.Value];
+            if (memory.End.Value is T t)
+            {
+                Memory = new T[] { t };
+            }
         }
         public new GameSequenceSegment<T> Next { get; set; } = default!;
     }
+    /// <summary>
+    /// Store GameSequenceSegments, and constrain them to Numbers. <3!!
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class GameSequence<T> where T : INumber<T>
     {
         private readonly List<GameSequenceSegment<T>> GameSegments = new(100);
@@ -40,22 +53,30 @@ namespace BonesOfTheFallen.Services
         }
         public void SumSegments()
         {
-            GameSequenceSegment<T> summed = new(new T[GameSegments[0].Memory.Length]);
-            foreach (GameSequenceSegment<T> segment in GameSegments)
+            if (GameSegments.Count > 1)
             {
-                foreach (var item in segment.Memory.Span.Enumerate())
+                GameSequenceSegment<T> summed = new(new T[GameSegments[0].Memory.Length]);
+                foreach (GameSequenceSegment<T> segment in GameSegments)
                 {
-                    summed.Memory.Span[item.Index] += item.Value;
+                    foreach (var item in segment.Memory.Span.Enumerate())
+                    {
+                        summed.Memory.Span[item.Index] += item.Value;
+                    }
                 }
+                GameSegments.Clear();
+                GameSegments.Add(summed);
             }
-            GameSegments.Clear();
-            GameSegments.Add(summed);
         }
     }
-    public record WeaponData
+    public struct WeaponData
     {
         internal bool? Identifiable = default!;
         internal bool? IsMagic = false;
+
+        public WeaponData()
+        {
+        }
+
         internal GameSequence<int> Data { get; init; } = default!;
     }
     internal sealed record WeaponSystem

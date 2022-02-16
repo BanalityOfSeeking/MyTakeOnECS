@@ -33,15 +33,12 @@
             // 
             // skglControl1
             // 
-            this.skglControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.skglControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.skglControl1.BackColor = System.Drawing.Color.Black;
-            this.skglControl1.Location = new System.Drawing.Point(1, 4);
+            this.skglControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.skglControl1.Location = new System.Drawing.Point(0, 0);
             this.skglControl1.Margin = new System.Windows.Forms.Padding(1);
             this.skglControl1.Name = "skglControl1";
-            this.skglControl1.Size = new System.Drawing.Size(1862, 1200);
+            this.skglControl1.Size = new System.Drawing.Size(1611, 940);
             this.skglControl1.TabIndex = 0;
             this.skglControl1.VSync = true;
             // 
@@ -49,10 +46,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 41F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1863, 940);
+            this.ClientSize = new System.Drawing.Size(1611, 940);
             this.Controls.Add(this.skglControl1);
             this.Name = "Form1";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
