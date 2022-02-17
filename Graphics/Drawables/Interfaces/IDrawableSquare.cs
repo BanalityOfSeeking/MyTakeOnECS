@@ -1,9 +1,9 @@
-﻿using Microsoft.Maui.Graphics;
+﻿using BonesOfTheFallen.Services.Graphics.Interface;
+using Microsoft.Maui.Graphics;
 using System;
 
-namespace BonesOfTheFallen.Graphics
+namespace BonesOfTheFallen.Services.Graphics.Drawables.Interfaces;
+
+public interface IDrawableSquare<T> : ISquare<T>, IDrawable, IDrawablePoint<T> where T : INumber<T>
 {
-    public interface IDrawableSquare<T> : ISquare<T>, IDrawable, IDrawablePoint<T> where T : INumber<T>
-    {
-    }
 }

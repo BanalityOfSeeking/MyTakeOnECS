@@ -1,4 +1,6 @@
-﻿using BonesOfTheFallen.Graphics;
+﻿using BonesOfTheFallen.Services.Graphics;
+using BonesOfTheFallen.Services.Graphics.Drawables;
+using BonesOfTheFallen.Services.Graphics.Interface;
 using Microsoft.Maui.Graphics;
 using Microsoft.Maui.Graphics.Skia;
 using SkiaSharp.Views.Desktop;

@@ -1,10 +1,9 @@
 ﻿using System;
 
-namespace BonesOfTheFallen.Graphics
+namespace BonesOfTheFallen.Services.Graphics.Interface;
+
+public interface ISquare<T> : IPoint<T> where T : INumber<T>
 {
-    public interface ISquare<T> : IPoint<T> where T : INumber<T>
-    {
-        public T SideLength { get; }
-    }
+    public T SideLength { get; }
 }
 
