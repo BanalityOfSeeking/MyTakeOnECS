@@ -6,8 +6,8 @@ namespace BonesOfTheFallen.Graphics
     {
         public T Radius { get; }
 
-        ICircle<T> Contract(T Contraction);
-        ICircle<T> Expand(T Expansion);
-    }
+        public ICircle<T> Expand(T Expansion);
+        public ICircle<T> Contract(T Contraction);
 
+    }
 }

@@ -1,9 +1,9 @@
 ﻿using Microsoft.Maui.Graphics;
+using System;
 
 namespace BonesOfTheFallen.Graphics
 {
-    public interface IDrawablePoint
+    public interface IDrawablePoint<T> : IPoint<T>, IDrawable where T : INumber<T>
     {
-        void Draw(ICanvas canvas, RectangleF dirtyRect);
     }
 }

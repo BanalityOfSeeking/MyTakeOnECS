@@ -4,12 +4,11 @@ namespace BonesOfTheFallen.Graphics
 {
     public interface IPoint<T> where T : INumber<T>
     {
+        public T Top { get; init; }
+        public T Left { get; init; }
 
-        public T Top { get; }
-        public T Left { get; }
-
-        IPoint<T> DistanceTo(IPoint<T> other);
-        IPoint<T> MoveTo(T left, T top);
+        IPoint<T> MoveByOffset(T left, T top);
+        IPoint<T> MoveTo(IPoint<T> point);
     }
 }
 

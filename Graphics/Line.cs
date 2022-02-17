@@ -7,7 +7,7 @@ namespace BonesOfTheFallen.Graphics
         Horizontal,
         Vertical,
     }
-    public record Line<T> : Point<T>, ILine<T> where T : INumber<T>
+    public record Line<T> : Point<T>, IPoint<T>, ILine<T> where T : INumber<T>
     {
         public Line(IPoint<T> start, T distance, Orientation orientation) : base(start.Top, start.Left)
         {
@@ -15,11 +15,11 @@ namespace BonesOfTheFallen.Graphics
             LineEnd = (Point<T>)start;
             if (orientation == Orientation.Horizontal)
             {
-                LineEnd = LineEnd with { Left =+distance };
+                LineEnd = LineEnd with { Left = Left + distance };
             }
             else
             {
-                LineEnd = LineEnd with { Top =+distance };
+                LineEnd = LineEnd with { Top = Top + distance };
             }
 
         }
@@ -28,7 +28,7 @@ namespace BonesOfTheFallen.Graphics
 
         public IPoint<T> LineStart { get; init; }
 
-        public IPoint<T> Distance => LineStart.DistanceTo(LineEnd);
+        public IPoint<T> Distance => new Point<T>(LineStart.Left - LineEnd.Left, LineStart.Top - LineEnd.Top);
     }
 }
 

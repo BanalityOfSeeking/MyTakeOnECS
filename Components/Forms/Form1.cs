@@ -16,7 +16,7 @@ namespace BonesOfTheFallen.Services.Components.Forms
             skglControl1.PreviewKeyDown += Form1_PreviewKeyDown;
             skglControl1.PaintSurface += SkglControl1_PaintSurface;
 
-            Drawables.Add(new DrawableSquare(500, 500, 100));
+            Drawables.Add(new DrawableSquare<float>(500, 500, 100));
         }
 
         private void Form1_PreviewKeyDown(object? sender, PreviewKeyDownEventArgs e)
@@ -25,29 +25,23 @@ namespace BonesOfTheFallen.Services.Components.Forms
             {
                 case Keys.Up:
                     Drawables.Drawables[0] =
-                    (IDrawable)
-                    ((IPoint<float>)Drawables.Drawables[0])
-                        .MoveTo(((IPoint<float>)Drawables.Drawables[0]).Left,
-                        ((IPoint<float>)Drawables.Drawables[0]).Top - 5);
+                    (IDrawable)((IPoint<float>)Drawables.Drawables[0])
+                        .MoveByOffset(0, -5);
                     break;
                 case Keys.Down:
                     Drawables.Drawables[0] =
                     (IDrawable)((IPoint<float>)Drawables.Drawables[0])
-                        .MoveTo(((IPoint<float>)Drawables.Drawables[0]).Left,
-                        ((IPoint<float>)Drawables.Drawables[0]).Top + 5);
+                        .MoveByOffset(0, 5);
                     break;
                 case Keys.Left:
                     Drawables.Drawables[0] =
-                    (IDrawable)
-                    ((IPoint<float>)Drawables.Drawables[0])
-                        .MoveTo(((IPoint<float>)Drawables.Drawables[0]).Left - 1,
-                        ((IPoint<float>)Drawables.Drawables[0]).Top); break;
+                    (IDrawable)((IPoint<float>)Drawables.Drawables[0])
+                        .MoveByOffset(-5, 0);
+                    break;
                 case Keys.Right:
                     Drawables.Drawables[0] =
-                    (IDrawable)
-                    ((IPoint<float>)Drawables.Drawables[0])
-                        .MoveTo(((IPoint<float>)Drawables.Drawables[0]).Left + 1,
-                        ((IPoint<float>)Drawables.Drawables[0]).Top);
+                    (IDrawable)((IPoint<float>)Drawables.Drawables[0])
+                        .MoveByOffset(5, 0);
                     break;
                 default:
                     break;
@@ -58,8 +52,9 @@ namespace BonesOfTheFallen.Services.Components.Forms
         private void SkglControl1_PaintSurface(object? sender, SKPaintGLSurfaceEventArgs e)
         {
             e.Surface.Canvas.Clear();
+
             if (GameGraphics.GameCanvas == null)
-            {
+            {             
                 GameGraphics.GameCanvas = new SkiaCanvas() { Canvas = e.Surface.Canvas };
 
                 GameGraphics.rectangle = RectangleF.FromLTRB(e.Info.Rect.Left, e.Info.Rect.Top, e.Info.Rect.Right, e.Info.Rect.Bottom);

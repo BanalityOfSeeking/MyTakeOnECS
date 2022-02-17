@@ -6,8 +6,8 @@ namespace BonesOfTheFallen.Graphics
     {
         public Point(T left, T top)
         {
-            Top=top;
-            Left=left;
+            Top = top;
+            Left = left;
         }
 
         public T Top { get; init; } = default!;
@@ -17,16 +17,12 @@ namespace BonesOfTheFallen.Graphics
         {
             return HashCode.Combine(Top, Left);
         }
+        public IPoint<T> MoveTo(IPoint<T> other)
+         => this with { Left = other.Left, Top = other.Top };
 
-        public virtual IPoint<T> MoveTo(T left, T top)
+        public IPoint<T> MoveByOffset(T left, T top)
         {
-            var dist = DistanceTo(new Point<T>(left, top));
-            return this with { Left = Left - dist.Left, Top = Top - dist.Top };
-        }
-
-        public virtual IPoint<T> DistanceTo(IPoint<T> other)
-        {
-            return new Point<T>(Left - other.Left, Top - other.Top);
+             return this with { Left = Left + left, Top =  Top + top };
         }
     }
 }

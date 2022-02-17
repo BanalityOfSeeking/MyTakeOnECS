@@ -2,7 +2,7 @@
 
 namespace BonesOfTheFallen.Graphics
 {
-    public record Circle<T> : Point<T>, ICircle<T> where T : INumber<T>
+    public record Circle<T> : Point<T>, IPoint<T>, ICircle<T> where T : INumber<T>
     {
         public Circle(T radius, IPoint<T> center) : base(center.Top, center.Left)
         {
@@ -10,8 +10,9 @@ namespace BonesOfTheFallen.Graphics
         }
 
         public T Radius { get; init; }
-        public ICircle<T> Expand(T Expansion) => this with { Radius =+Expansion };
-        public ICircle<T> Contract(T Contraction) => this with { Radius =-Contraction };
+        internal static T Zero { get => default!; }
+        public ICircle<T> Expand(T Expansion) => this with { Radius = Radius + Expansion };
+        public ICircle<T> Contract(T Contraction) => (Radius - Contraction) > Circle<T>.Zero ? this with { Radius = Radius - Contraction } : this;
     }
 }
 
