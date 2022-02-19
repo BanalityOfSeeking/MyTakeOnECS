@@ -5,23 +5,20 @@ using Microsoft.Maui.Graphics;
 
 namespace BonesOfTheFallen.Services.Graphics.Drawables;
 
-public record DrawableCircle<T> : Circle<T>, ICircle<T>, IDrawableCircle<T> where T : INumber<T>
+public record DrawableCircle : Circle<float>, ICircle<float>, IDrawableCircle<float>, IMainDrawable, ISubDrawable
 {
-    public DrawableCircle(T radius, IPoint<T> center) : base(radius, center)
+    public DrawableCircle(Point<float> center, float radius) : base(radius, center)
     {
     }
 
-    protected DrawableCircle(Circle<T> original) : base(original)
+    protected DrawableCircle(Circle<float> original) : base(original)
     {
     }
-
+    public float Offset { get; init; } = default!;
     public void Draw(ICanvas canvas, RectangleF dirtyRect)
     {
-        canvas.FillColor = Color.FromRgb(Random.Shared.Next(50, 255), Random.Shared.Next(50, 255), Random.Shared.Next(50, 255));
-        var left = float.Parse(Left.ToString()!);
-        var top = float.Parse(Top.ToString()!);
-        var radius = float.Parse(Radius.ToString()!);
-        canvas.FillCircle(left, top, radius);
+        canvas.StrokeColor = Color.FromRgb(Random.Shared.Next(50, 255), Random.Shared.Next(50, 255), Random.Shared.Next(50, 255));
+        canvas.FillCircle(Left, Top, Radius);
     }
 }
 

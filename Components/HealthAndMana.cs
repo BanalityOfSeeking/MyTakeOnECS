@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace BonesOfTheFallen.Services.Components;
 
-public struct HealthAndMana
+public struct HealthAndMana<T> : IEquatable<HealthAndMana<T>> where T : INumber<T>
 {
-    public int Health;
-    public int Mana;
+    public T Health;
+    public T Mana;
 
-    public HealthAndMana(int health, int mana)
+    public HealthAndMana(T health, T mana)
     {
         Health=health;
         Mana=mana;
@@ -15,22 +16,27 @@ public struct HealthAndMana
 
     public override bool Equals(object? obj)
     {
-        return obj is HealthAndMana mana&&
-               Health==mana.Health&&
-               Mana==mana.Mana;
+        return obj is HealthAndMana<T> mana && Equals(mana);
     }
+
+    public bool Equals(HealthAndMana<T> other)
+    {
+        return EqualityComparer<T>.Default.Equals(Health, other.Health) &&
+               EqualityComparer<T>.Default.Equals(Mana, other.Mana);
+    }
+
     public override int GetHashCode()
     {
         return HashCode.Combine(Health, Mana);
     }
 
-    public static bool operator ==(HealthAndMana left, HealthAndMana right)
+    public static bool operator ==(HealthAndMana<T> left, HealthAndMana<T> right)
     {
         return left.Equals(right);
     }
 
-    public static bool operator !=(HealthAndMana left, HealthAndMana right)
+    public static bool operator !=(HealthAndMana<T> left, HealthAndMana<T> right)
     {
-        return !(left==right);
+        return !(left == right);
     }
 }

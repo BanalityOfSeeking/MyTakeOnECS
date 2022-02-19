@@ -1,37 +1,42 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
+using System.Collections.Generic;
 
 namespace BonesOfTheFallen.Services.Components;
 
-public struct LevelAndXP
+public struct LevelAndXP<T> : IEquatable<LevelAndXP<T>> where T : INumber<T>
 {
-    public int Level;
-    public int XP;
+    public T Level;
+    public T XP;
 
-    public LevelAndXP(int level, int xP)
+    public LevelAndXP(T level, T xP)
     {
-        Level=level;
-        XP=xP;
+        Level = level;
+        XP = xP;
     }
 
-
-    public override bool Equals([NotNullWhen(true)] object? obj)
+    public override bool Equals(object? obj)
     {
-        return base.Equals(obj);
+        return obj is LevelAndXP<T> xP && Equals(xP);
+    }
+
+    public bool Equals(LevelAndXP<T> other)
+    {
+        return EqualityComparer<T>.Default.Equals(Level, other.Level) &&
+               EqualityComparer<T>.Default.Equals(XP, other.XP);
     }
 
     public override int GetHashCode()
     {
-        return base.GetHashCode();
+        return HashCode.Combine(Level, XP);
     }
 
-    public static bool operator ==(LevelAndXP left, LevelAndXP right)
+    public static bool operator ==(LevelAndXP<T> left, LevelAndXP<T> right)
     {
         return left.Equals(right);
     }
 
-    public static bool operator !=(LevelAndXP left, LevelAndXP right)
+    public static bool operator !=(LevelAndXP<T> left, LevelAndXP<T> right)
     {
-        return !(left==right);
+        return !(left == right);
     }
 }

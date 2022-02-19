@@ -1,8 +1,8 @@
 ﻿namespace BonesOfTheFallen.Services.Components;
 
-    public enum Race
+    public enum Race : byte
     {
-        Human,
+        Human = 1,
         Dwarf,
         Elf,
     }

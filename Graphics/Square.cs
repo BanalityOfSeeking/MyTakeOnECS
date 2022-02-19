@@ -5,11 +5,10 @@ namespace BonesOfTheFallen.Services.Graphics;
 
 public record Square<T> : Point<T>, IPoint<T>, ISquare<T> where T : INumber<T>
 {
-    public Square(T top, T left, T sideLength) : base(top, left)
+    public Square(T left, T top, T sideLength) : base(left, top)
     {
         SideLength = sideLength;
     }
-    public T SideLength { get; }
 }
 
 

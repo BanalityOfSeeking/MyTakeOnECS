@@ -5,23 +5,22 @@ using Microsoft.Maui.Graphics;
 
 namespace BonesOfTheFallen.Services.Graphics.Drawables;
 
-public record DrawablePoint<T> : Point<T>, IPoint<T>, IDrawable, IDrawablePoint<T> where T : INumber<T>
-{
-    public DrawablePoint(T top, T left) : base(top, left)
+    public record DrawablePoint : Point<float>, IPoint<float>, IDrawable, IDrawablePoint<float>, IMainDrawable, ISubDrawable
     {
-    }
+        public DrawablePoint(float left, float top) : base(left, top)
+        {
+        }
 
-    protected DrawablePoint(Point<T> original) : base(original)
-    {
+        protected DrawablePoint(Point<float> original) : base(original)
+        {
+        }
+        public float Offset { get; init; } = default!;
+        public void Draw(ICanvas canvas, RectangleF dirtyRect)
+        {
+            canvas.FillColor = Color.FromRgb(Random.Shared.Next(50, 255), Random.Shared.Next(50, 255), Random.Shared.Next(50, 255));
+    
+            canvas.FillCircle(Left, Top, 1.0f);
+        }
     }
-
-    public void Draw(ICanvas canvas, RectangleF dirtyRect)
-    {
-        canvas.FillColor = Color.FromRgb(Random.Shared.Next(50, 255), Random.Shared.Next(50, 255), Random.Shared.Next(50, 255));
-        var top = float.Parse(Top.ToString()!);
-        var left = float.Parse(Left.ToString()!);
-        canvas.FillCircle(top, left, 1.0f);
-    }
-}
 
 

@@ -9,15 +9,15 @@ using Microsoft.Toolkit.HighPerformance.Helpers;
 /// <returns>Postion or Postion affected by gravity</returns>
 namespace BonesOfTheFallen.Services.Systems
 {
-    public readonly struct MovementHelper : IRefAction<Position>
+    public readonly struct MovementHelper : IRefAction<Position<float>>
     {
-        public void Invoke(ref Position position)
+        public void Invoke(ref Position<float> position)
         {
             VelocityUpdate(ref position);
         }
         private static bool previousUD = false;
         private static bool previousLR = false;
-        private static void BoundingRule(ref Position postion, double updown, double leftright)
+        private static void BoundingRule(ref Position<float> postion, float updown, float leftright)
         {
             if (postion.Y + updown > 0.0 && previousUD == false)
             {
@@ -26,17 +26,17 @@ namespace BonesOfTheFallen.Services.Systems
             }
             else if (postion.Y + updown < 0.00)
             {
-                postion.Y = 0.0;
+                postion.Y = 0.0f;
                 previousUD = false;
             }
             else if (postion.X + leftright >= 100.0)
             {
-                postion.X -= 0.5;
+                postion.X -= 0.5f;
                 previousLR = true;
             }
             else if (postion.X + leftright <= -100.0)
             {
-                postion.X += 0.5;
+                postion.X += 0.5f;
                 previousLR = true;
             }
             else
@@ -46,9 +46,9 @@ namespace BonesOfTheFallen.Services.Systems
             }
         }
 
-        private static double updown = 0.0;
-        private static double leftright = 0.0;
-        private static void VelocityUpdate(ref Position position)
+        private static float updown = 0.0f;
+        private static float leftright = 0.0f;
+        private static void VelocityUpdate(ref Position<float> position)
         {
             if (updown < 0.0)
             {
