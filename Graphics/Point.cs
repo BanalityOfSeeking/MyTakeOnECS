@@ -3,9 +3,9 @@ using System;
 
 namespace BonesOfTheFallen.Services.Graphics;
 
-    public record Point<T> : IPoint<T> where T : INumber<T>
+    public record Point<T> : IPoint<T>, ILine<T>, ICircle<T>, ISquare<T> where T : INumber<T>
     {
-        public Point() : this(T.Zero,T.Zero)
+        public Point() : this(T.Zero, T.Zero)
         { }
         public Point(T left, T top)
         {
@@ -13,18 +13,19 @@ namespace BonesOfTheFallen.Services.Graphics;
             Top = top;
         }
 
-        public Point<T> SetRadius(T radius)
+        public IPoint<T> SetRadius(T radius)
         {
             return this with { Radius = radius };
         }
-        public Point<T> SetSideLength(T side)
+        public IPoint<T> SetSideLength(T side)
         {
             return this with { SideLength = side };
         }
-        public T Top { get; init; } = default!;
-        public T Left { get; init; } = default!;
-        public T SideLength { get; init; } = default!;
-        public T Radius {get; init;} = default!;
+        public T Top { get; init; } = T.Zero;
+        public T Left { get; init; } = T.Zero;
+        public T SideLength { get; init; } = T.Zero;
+        public Orientation Orientation { get; init; } = Orientation.None;
+        public T Radius { get; init; } = T.Zero;
         public override int GetHashCode()
         {
             return HashCode.Combine(Top, Left);
@@ -39,38 +40,27 @@ namespace BonesOfTheFallen.Services.Graphics;
 
         public ISquare<T> LengthenSide(T Expansion)
         {
-            if(SideLength != default!)
-            {
-                return (ISquare<T>)(this with { SideLength = SideLength + Expansion });
-            }
-            return (ISquare<T>)(this);
+            return this with { SideLength = SideLength + Expansion };
         }
-
         public ISquare<T> ShrinkSide(T Contraction)
         {
-            if(SideLength - Contraction > T.Zero)
-            {
-                return (ISquare<T>)(this with { SideLength = SideLength - Contraction });
-            }
-            return (ISquare<T>)this;
+            return this with { SideLength = SideLength - Contraction };
         }
-
+        public ILine<T> Shrink(T Contraction)
+        {
+            return this with { SideLength = SideLength - Contraction };
+        }
         public ICircle<T> Expand(T Expansion)
         {
-            if(Radius != default!)
-            {
-                return (ICircle<T>)(this with { Radius = Radius + Expansion });
-            }
-            return (ICircle<T>)this;
+            return this with { Radius = Radius + Expansion };
         }
-
         public ICircle<T> Contract(T Contraction)
         {
-            if(Radius - Contraction > T.Zero)
-            {
-                return (ICircle<T>)(this with { Radius = Radius - Contraction });
-            }
-            return (ICircle<T>)this;
+            return this with { Radius = Radius - Contraction };
+        }
+        public ILine<T> Extend(T Extension)
+        {
+            return this with { SideLength = SideLength + Extension };
         }
     }
 

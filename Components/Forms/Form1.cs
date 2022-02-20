@@ -1,7 +1,4 @@
 ﻿using BonesOfTheFallen.Services.Graphics;
-using BonesOfTheFallen.Services.Graphics.Drawables;
-using BonesOfTheFallen.Services.Graphics.Drawables.Interfaces;
-using BonesOfTheFallen.Services.Graphics.Interface;
 using Microsoft.Maui.Graphics;
 using Microsoft.Maui.Graphics.Skia;
 using SkiaSharp.Views.Desktop;
@@ -18,72 +15,66 @@ namespace BonesOfTheFallen.Services.Components.Forms
             KeyPreview = true;
             skglControl1.PreviewKeyDown += SkglControl1_PreviewKeyDown;
             skglControl1.PaintSurface += SkglControl1_PaintSurface;
-            var DrawableObject = FigureContainer.GetFigure();
-
-            DrawableObject
-                .Add(new DrawableCircle(new Point<float>(500, 500), 20));
-            DrawableObject
-                .Add(new DrawableLine(new Point<float>(500, 520), 100, Graphics.Orientation.Vertical));
-            DrawableObject
-                .Add(new DrawableLine(new Point<float>(460, 540), 80, Graphics.Orientation.Horizontal));
-            
-            Drawables.SetFigure(DrawableObject);
         }
 
         private void SkglControl1_PreviewKeyDown(object? sender, PreviewKeyDownEventArgs e)
         {
+            var MainPoint = Drawables[1];
             switch (e.KeyCode)
             {
                 case Keys.Up:
-                    Drawables[0].MainPoint = (IMainDrawable)Drawables[0].MainPoint
-                        .MoveByOffset(0, -5);
-                    for (var item = 0; item < Drawables[0].Count; item++)
+                    if (MainPoint.FirstPoint.Y - 5 > Height - 310)
                     {
-                        Drawables[0][item] = (ISubDrawable)Drawables[0][item].MoveByOffset(0,-5);
+                        MainPoint.Move(0, -5);
+                    }
+                    else
+                    { 
+                        MainPoint.Move(0, 5);
                     }
                     break;
                 case Keys.Down:
-                    Drawables[0].MainPoint = (IMainDrawable)Drawables[0].MainPoint
-                        .MoveByOffset(0, 5);
-                    for(var item = 0;item < Drawables[0].Count;item++)
+                    if (MainPoint.LastPoint.Y + 5 <= Height - 200)
                     {
-                        Drawables[0][item] = (ISubDrawable)Drawables[0][item].MoveByOffset(0, 5);
+                        MainPoint.Move(0, 5);
+                    }
+                    else
+                    {
+                        MainPoint.Move(0, -5);
                     }
                     break;
                 case Keys.Left:
-                    Drawables[0].MainPoint = (IMainDrawable)Drawables[0].MainPoint
-                        .MoveByOffset(-5, 0);
-                    for (var item = 0; item < Drawables[0].Count; item++)
-                    {
-                        Drawables[0][item] = (ISubDrawable)Drawables[0][item].MoveByOffset(-5, 0);
-                    }
+                    MainPoint.Move(-5, 0);
                     break;
                 case Keys.Right:
-                    Drawables[0].MainPoint = (IMainDrawable)Drawables[0].MainPoint
-                        .MoveByOffset(5, 0);
-                    for (var item = 0; item < Drawables[0].Count; item++)
-                    {
-                        Drawables[0][item] = (ISubDrawable)Drawables[0][item].MoveByOffset(5, 0);
-                    }
+                    MainPoint.Move(5, 0);
                     break;
                 default:
                     break;
             }
-
             skglControl1.Invalidate();
         }
 
         private void SkglControl1_PaintSurface(object? sender, SKPaintGLSurfaceEventArgs e)
         {
             e.Surface.Canvas.Clear();
+            ICanvas canvas = new SkiaCanvas() { Canvas = e.Surface.Canvas };
+            if (Drawables.DrawablePaths.Count == 0)
+            {
+                var Ground = FigureContainer.GetFigure();
+                Ground.AppendRectangle(0, 0, Right, Height);
+                Ground.PathColors.Add(Colors.Green);
+                Drawables.SetFigure(Ground);
+                var player = FigureContainer.GetFigure();
+                player.AppendRectangle(100, Height - 280, 20, 20);
+                player.PathColors.Add(Colors.Blue);
+                Drawables.SetFigure(player);
+                var enemy = FigureContainer.GetFigure();
+                enemy.AppendRectangle(Right -100, Height - 280, 20, 20);
+                enemy.PathColors.Add(Colors.Red);
+                Drawables.SetFigure(enemy);
 
-            if (GameGraphics.GameCanvas == null)
-            {             
-                GameGraphics.GameCanvas = new SkiaCanvas() { Canvas = e.Surface.Canvas };
-
-                GameGraphics.rectangle = RectangleF.FromLTRB(e.Info.Rect.Left, e.Info.Rect.Top, e.Info.Rect.Right, e.Info.Rect.Bottom);
             }
-            Drawables.DrawFigures();
+            Drawables.DrawFigures(canvas, RectangleF.FromLTRB(e.Info.Rect.Left, e.Info.Rect.Top, e.Info.Rect.Right, e.Info.Rect.Bottom));
         }
     }
 }

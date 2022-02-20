@@ -1,22 +1,36 @@
 ﻿using System;
 
 namespace BonesOfTheFallen.Services.Graphics.Interface;
+    // Always Left Top Set for Point.
+    // If SideLength & Orientation not set to Orientation.None, Point is a line.
+    // if Radius Set Point is a circle
+    // if SideLength and Orientation equals Orientation.None, Point is a square.
 
+    public interface ICircle<T> : IPoint<T> where T : INumber<T>
+    {
+    }
+    public interface ILine<T> : IPoint<T> where T : INumber<T>
+    {
+    }
+    public interface ISquare<T> : IPoint<T> where T : INumber<T>
+    {
+    }
     public interface IPoint<T> where T : INumber<T>
     {
-        public T Top { get; init; }
-        public T Left { get; init; }
-        public T SideLength { get; init; }
-        public T Radius { get; init; }
-        public IPoint<T> MoveByOffset(T left, T top);
-        public IPoint<T> MoveTo(IPoint<T> point);
+        T Left { get; init; }
+        Orientation Orientation { get; init; }
+        T Radius { get; init; }
+        T SideLength { get; init; }
+        T Top { get; init; }
 
-        public ISquare<T> LengthenSide(T Expansion);
-        public ISquare<T> ShrinkSide(T Contraction);
-
-        public ICircle<T> Expand(T Expansion);
-        public ICircle<T> Contract(T Contraction);
-
-
+        ICircle<T> Contract(T Contraction);
+        ICircle<T> Expand(T Expansion);
+        ILine<T> Extend(T Extension);
+        ISquare<T> LengthenSide(T Expansion);
+        IPoint<T> MoveByOffset(T left, T top);
+        IPoint<T> MoveTo(IPoint<T> other);
+        IPoint<T> SetRadius(T radius);
+        IPoint<T> SetSideLength(T side);
+        ILine<T> Shrink(T Contraction);
+        ISquare<T> ShrinkSide(T Contraction);
     }
-

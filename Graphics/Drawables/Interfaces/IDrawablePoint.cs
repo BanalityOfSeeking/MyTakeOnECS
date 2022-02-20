@@ -4,9 +4,8 @@ using System;
 
 namespace BonesOfTheFallen.Services.Graphics.Drawables.Interfaces;
 
-    public interface IDrawablePoint<T> : IPoint<T>, IDrawable where T : INumber<T>
+public interface IDrawablePoint<T> : IPoint<T>, IDrawable where T : INumber<T>
     {
-        public T Offset { get; init; }
     }
 public interface IMainDrawable : IDrawablePoint<float>
 {
