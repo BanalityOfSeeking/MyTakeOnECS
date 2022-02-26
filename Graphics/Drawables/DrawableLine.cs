@@ -5,35 +5,27 @@ using Microsoft.Maui.Graphics;
 
 namespace BonesOfTheFallen.Services.Graphics.Drawables;
 
-public record DrawableLine : DrawablePoint
+public record DrawableLine : ReadOnlyLine<float>, IReadOnlyLine<float>, IDrawable
+{
+    public DrawableLine(ReadOnlyPosition<float> Origin, ReadOnlyPosition<float> End) : base(Origin, End)
     {
-        public DrawableLine(float left, float top, float distance, Orientation orientation) : base(left, top)
-        {
-            SideLength = distance;
-            Orientation = orientation;
-        }
-        public DrawableLine(IPoint<float> start, float distance, Orientation orientation) : base(start.Left, start.Top)
-        {
-            SideLength = distance;
-            Orientation = orientation;
-        }
-
-        protected DrawableLine(Line<float> original) : base(original)
-        {
-        }
-        public override void Draw(ICanvas canvas, RectangleF dirtyRect)
-        {
-            canvas.StrokeColor = Color.FromRgb(Random.Shared.Next(50, 255), Random.Shared.Next(50, 255), Random.Shared.Next(50, 255));
-            if (Orientation == Orientation.Horizontal)
-            {
-                canvas.DrawLine(Left, Top, Left + SideLength, Top);
-            }
-            else
-            {
-                canvas.DrawLine(Left, Top, Left, Top + SideLength);
-            }
-        }
     }
+
+    public DrawableLine(float x1, float y1, float x2, float y2) : base(x1, y1, x2, y2)
+    {
+    }
+
+    protected DrawableLine(ReadOnlyLine<float> original) : base(original)
+    {
+    }
+
+    public void Draw(ICanvas canvas, RectangleF dirtyRect)
+    {
+        canvas.StrokeColor = Color.FromRgb(Random.Shared.Next(50, 255), Random.Shared.Next(50, 255), Random.Shared.Next(50, 255));
+
+        canvas.DrawLine(Origin.X, Origin.Y, End.X, End.Y);
+    }
+}
 
 
 

@@ -4,28 +4,20 @@ using Microsoft.Maui.Graphics;
 namespace BonesOfTheFallen.Services.Graphics;
 
 public static class GameGraphics
-    {
-        internal static ICanvas GameCanvas = default!;
-        internal static RectangleF rectangle = default!;
-    }
-internal class DrawablePath : PathF, IDrawable
 {
-    public List<Color> PathColors = new();
-    public void Draw(ICanvas canvas, RectangleF dirtyRect)
-    {
-        canvas.FillPath(this);        
-    }
+    internal static ICanvas GameCanvas = default!;
+    internal static RectangleF rectangle = default!;
 }
 public record FigureContainer
 {
-    internal static DrawablePath GetFigure() => new();
+    internal static PathF GetFigure() => new();
     // gather figure DrawablePoints
-    internal void SetFigure(DrawablePath figure)
+    internal void SetFigure(PathF figure)
     {
         DrawablePaths.Add(figure);
     }
-    internal readonly List<DrawablePath> DrawablePaths = new();
-    internal DrawablePath this[int index] { get => DrawablePaths[index]; set => DrawablePaths[index] = value; }
+    internal readonly List<PathF> DrawablePaths = new();
+    internal PathF this[int index] { get => DrawablePaths[index]; set => DrawablePaths[index] = value; }
     public void DrawFigures(ICanvas canvas, RectangleF rectangle)
     {
         int i = 0;

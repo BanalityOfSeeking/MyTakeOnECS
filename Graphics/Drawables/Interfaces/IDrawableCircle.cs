@@ -4,6 +4,7 @@ using System;
 
 namespace BonesOfTheFallen.Services.Graphics.Drawables.Interfaces;
 
-public interface IDrawableCircle<T> : ICircle<T>, IDrawable, IDrawablePoint<T> where T : INumber<T>
+public interface IDrawableCircle<T, TResult> : IReadOnlyCircle<T>, IDrawable
+    where T : INumber<T>, new()
 {
 }

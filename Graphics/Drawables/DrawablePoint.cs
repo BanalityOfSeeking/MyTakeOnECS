@@ -1,26 +1,13 @@
-﻿using System;
-using BonesOfTheFallen.Services.Graphics.Drawables.Interfaces;
-using BonesOfTheFallen.Services.Graphics.Interface;
-using Microsoft.Maui.Graphics;
+﻿using Microsoft.Maui.Graphics;
 
 namespace BonesOfTheFallen.Services.Graphics.Drawables;
 
-    public record DrawablePoint : Point<float>, IPoint<float>, IDrawable,
-        IDrawablePoint<float>, IDrawableLine<float>, IDrawableSquare<float>, IDrawableCircle<float>
+public record class DrawablePosition(float X, float Y, Color Color) : ReadOnlyPosition<float>(X, Y), IDrawable
+{ 
+    public void Draw(ICanvas canvas, RectangleF dirtyRect)
     {
-        public DrawablePoint(float left, float top) : base(left, top)
-        {
-        }
-
-        public DrawablePoint(Point<float> original) : base(original)
-        {
-        }
-        public virtual void Draw(ICanvas canvas, RectangleF dirtyRect)
-        {
-            canvas.FillColor = Color.FromRgb(Random.Shared.Next(50, 255), Random.Shared.Next(50, 255), Random.Shared.Next(50, 255));
-
-            canvas.FillCircle(Left, Top, 1.0f);
-        }
+        canvas.StrokeSize = 1;
+        canvas.StrokeColor = Color;
+        canvas.DrawCircle(new PointF(X, Y), 1);
     }
-
-
+}

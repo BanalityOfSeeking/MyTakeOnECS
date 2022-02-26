@@ -17,7 +17,7 @@ namespace BonesOfTheFallen.Services
             gameObject.Weapon = this;
         }
 
-        internal GameSequence<float> Data { get; init; } = default!;
+        internal GameSequence<float, float> Data { get; init; } = default!;
     }
     public struct ArmorData
     {
@@ -28,7 +28,7 @@ namespace BonesOfTheFallen.Services
 
         public ArmorData(GameObject gameObject)
         {
-            var ArmorData = new ArmorSequences<float>();
+            var ArmorData = new ArmorSequences<float, float>();
             Defense = ArmorData.Defense.Memory.Span[3];
             ResistDamage = ArmorData.DamageResistChance.Memory.Span[1];
             MagicDefense = ArmorData.MagicDefense.Memory.Span[2];

@@ -1,24 +1,23 @@
 ﻿using System;
-using BonesOfTheFallen.Services.Graphics.Drawables.Interfaces;
+using BonesOfTheFallen.Services.Graphics.Interface;
 using Microsoft.Maui.Graphics;
 
 namespace BonesOfTheFallen.Services.Graphics.Drawables;
 
-public record DrawableSquare : DrawablePoint, IMainDrawable, ISubDrawable
+public record DrawableRectangle : ReadOnlyRectangle<float>, IDrawable
 {
-    public DrawableSquare(float top, float left, float sideLength) : base(top, left)
-    {
-        SideLength = sideLength;
-    }
-
-    protected DrawableSquare(Square<float> original) : base(original)
+    public DrawableRectangle(ReadOnlyPosition<float> left, ReadOnlyPosition<float> right, ReadOnlyPosition<float> top, ReadOnlyPosition<float> bottom) : base(left, right, top, bottom)
     {
     }
 
-    public override void Draw(ICanvas canvas, RectangleF dirtyRect)
+    protected DrawableRectangle(ReadOnlyRectangle<float> original) : base(original)
+    {
+    }
+
+    public void Draw(ICanvas canvas, RectangleF dirtyRect)
     {
         canvas.FillColor = Color.FromRgb(Random.Shared.Next(50, 255), Random.Shared.Next(50, 255), Random.Shared.Next(50, 255));
-        canvas.FillRectangle(Left, Top, SideLength, SideLength);
+        canvas.FillRectangle(Left, Top, Right.X - Left.X, Bottom.Y - Top.Y);
     }
 }
 

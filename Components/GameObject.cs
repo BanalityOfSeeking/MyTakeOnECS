@@ -7,7 +7,7 @@ public record GameObject
 {
     public short GameFlags { get; internal set; }
     public Func<IDrawable>? Drawing = default!;
-    public GameSequence<int>? Attributes = default!;
+    public GameSequence<int, int>? Attributes = default!;
     public WeaponData? Weapon = default!;
     public ArmorData? Armor = default!;
     public HealthAndMana<int>? HealthAndMana = default!;
