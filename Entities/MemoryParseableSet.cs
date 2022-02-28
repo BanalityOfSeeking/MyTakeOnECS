@@ -2,24 +2,23 @@
 
 namespace BonesOfTheFallen.Services
 {
-    public class SumSequenceSparseSet<T, TResult> where T : INumber<T>
-        where TResult : IParseable<TResult>
+    public class SumSequenceSparseSet<T> where T : INumber<T>
     {
         private readonly int _max = 0;
 
         private T _n = T.Zero;
 
-        internal GameSequence<T, TResult>[] _denseEntities = default!;     // dense array
-        internal GameSequence<T, TResult>[] _sparseEntities = default!;     // sparse array
+        internal GameSequence<T>[] _denseEntities = default!;     // dense array
+        internal GameSequence<T>[] _sparseEntities = default!;     // sparse array
 
         public SumSequenceSparseSet(int max)
         {
-            _denseEntities = new GameSequence<T, TResult>[max];
-            _sparseEntities = new GameSequence<T, TResult>[max];
+            _denseEntities = new GameSequence<T>[max];
+            _sparseEntities = new GameSequence<T>[max];
             _max = max;
         }
 
-        public GameSequence<T, TResult> GetEntity()
+        public GameSequence<T> GetEntity()
         {
             int n = int.Parse((_n + T.One).ToString()!);
             if(n < _max)
@@ -48,7 +47,7 @@ namespace BonesOfTheFallen.Services
                 return Entity < n;
         }
 
-        public SumSequenceSparseSet<T, TResult> Clear()
+        public SumSequenceSparseSet<T> Clear()
         {
             _n = T.Zero;     // simply set n to 0 to clear the set; no re-initialization is required
             return this;

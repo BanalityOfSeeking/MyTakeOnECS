@@ -1,4 +1,5 @@
 ﻿using BonesOfTheFallen.Services.Graphics;
+using BonesOfTheFallen.Services.Graphics.Drawables;
 using Microsoft.Maui.Graphics;
 using Microsoft.Maui.Graphics.Skia;
 using SkiaSharp.Views.Desktop;
@@ -8,7 +9,7 @@ namespace BonesOfTheFallen.Services.Components.Forms
 {
     public partial class Form1 : Form
     {
-        public FigureContainer Drawables = new();
+        public DrawableContainer DrawableContainer = new();
         public Form1()
         {
             InitializeComponent();
@@ -19,7 +20,7 @@ namespace BonesOfTheFallen.Services.Components.Forms
 
         private void SkglControl1_PreviewKeyDown(object? sender, PreviewKeyDownEventArgs e)
         {
-            var MainPoint = Drawables[1];
+            var MainPoint = DrawableContainer.Drawables[1];
             switch (e.KeyCode)
             {
                 case Keys.Up:
@@ -58,23 +59,8 @@ namespace BonesOfTheFallen.Services.Components.Forms
         {
             e.Surface.Canvas.Clear();
             ICanvas canvas = new SkiaCanvas() { Canvas = e.Surface.Canvas };
-            if (Drawables.DrawablePaths.Count == 0)
-            {
-                var Ground = FigureContainer.GetFigure();
-                Ground.AppendRectangle(0, 0, Right, Height);
-                Ground.PathColors.Add(Colors.Green);
-                Drawables.SetFigure(Ground);
-                var player = FigureContainer.GetFigure();
-                player.AppendRectangle(100, Height - 280, 20, 20);
-                player.PathColors.Add(Colors.Blue);
-                Drawables.SetFigure(player);
-                var enemy = FigureContainer.GetFigure();
-                enemy.AppendRectangle(Right -100, Height - 280, 20, 20);
-                enemy.PathColors.Add(Colors.Red);
-                Drawables.SetFigure(enemy);
-
-            }
-            Drawables.DrawFigures(canvas, RectangleF.FromLTRB(e.Info.Rect.Left, e.Info.Rect.Top, e.Info.Rect.Right, e.Info.Rect.Bottom));
+            DrawableContainer.AddDrawing(new DrawableCircle(new ReadOnlyPosition<float>(500, 500), 50), Colors.MidnightBlue);
+            DrawableContainer.Draw(canvas, RectangleF.FromLTRB(e.Info.Rect.Left, e.Info.Rect.Top, e.Info.Rect.Right, e.Info.Rect.Bottom));
         }
     }
 }

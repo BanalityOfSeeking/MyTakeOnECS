@@ -8,12 +8,11 @@ namespace BonesOfTheFallen.Services
     /// Store GameSequenceSegments, and constrain them to Numbers. <3!!
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class GameSequence<T, TResult>
+    public class GameSequence<T>
         where T : INumber<T>
-        where TResult : IParseable<TResult>
     {
-        private readonly List<GameSequenceSegment<T, TResult>> GameSegments = new(100);
-        public GameSequence<T, TResult> AddSegment(GameSequenceSegment<T, TResult> gameSegments)
+        private readonly List<GameSequenceSegment<T>> GameSegments = new(100);
+        public GameSequence<T> AddSegment(GameSequenceSegment<T> gameSegments)
         {
             GameSegments.Add(gameSegments);
             return this;
@@ -23,7 +22,7 @@ namespace BonesOfTheFallen.Services
             if (GameSegments.Count > 1)
             {
                 var input = new T[GameSegments[0].Memory.Length];
-                foreach (GameSequenceSegment<T, TResult> segment in GameSegments)
+                foreach (GameSequenceSegment<T> segment in GameSegments)
                 {
                     foreach (var item in segment.Memory.Span.Enumerate())
                     {

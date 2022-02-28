@@ -10,9 +10,8 @@ namespace BonesOfTheFallen.Services
     /// in other words I dont do singular modifications of the data, I only sum Sequences.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class GameSequenceSegment<T, TResult> : ReadOnlySequenceSegment<T> 
+    public class GameSequenceSegment<T> : ReadOnlySequenceSegment<T> 
         where T : INumber<T>
-        where TResult : IParseable<TResult>
     {
         public GameSequenceSegment(Memory<T> memory) : base()
         {

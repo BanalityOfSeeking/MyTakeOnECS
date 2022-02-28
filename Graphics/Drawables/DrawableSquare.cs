@@ -17,7 +17,7 @@ public record DrawableRectangle : ReadOnlyRectangle<float>, IDrawable
     public void Draw(ICanvas canvas, RectangleF dirtyRect)
     {
         canvas.FillColor = Color.FromRgb(Random.Shared.Next(50, 255), Random.Shared.Next(50, 255), Random.Shared.Next(50, 255));
-        canvas.FillRectangle(Left, Top, Right.X - Left.X, Bottom.Y - Top.Y);
+        canvas.FillRectangle(Left.X, Top.Y, Right.X - Left.X, Bottom.Y - Top.Y);
     }
 }
 
